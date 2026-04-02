@@ -32,4 +32,10 @@ export class AdminController {
       projects 
     };
   }
+
+  @Get('projects/new')
+  @Render('admin/projects_new')
+  getNewProjectPage() {
+    return { layout: 'layouts/admin', title: 'New Project | Eco Tech Hub' };
+  }
 }

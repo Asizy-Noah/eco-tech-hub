@@ -1,67 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" x-data="themeSwitcher()" :class="{ 'dark': isDark }">
+<html lang="en" x-data="adminStore()" :class="{ 'dark': isDark }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco Tech Hub | Admin Dashboard</title>
+    <title><%- locals.title || 'Eco Tech Hub | Admin Dashboard' %></title>
     <link href="/css/style.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>[x-cloak] { display: none !important; }</style>
+    <style>
+        [x-cloak] { display: none !important; }
+        /* High-end smooth transition for colors */
+        *, *::before, *::after {
+            transition-property: background-color, border-color, color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-eco-900 dark:text-gray-100 font-sans antialiased flex h-screen overflow-hidden" x-data="{ sidebarOpen: false }">
+<body class="bg-gray-50 text-gray-900 dark:bg-eco-900 dark:text-gray-100 font-sans antialiased flex h-screen overflow-hidden">
 
-    <div x-show="sidebarOpen" class="fixed inset-0 z-20 bg-black/50 lg:hidden" @click="sidebarOpen = false" x-cloak></div>
+    <div x-show="sidebarOpen" class="fixed inset-0 z-40 bg-black/50 lg:hidden" @click="sidebarOpen = false" x-cloak></div>
 
-    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-eco-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0 flex flex-col">
+    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-eco-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0 flex flex-col flex-shrink-0">
         <div class="flex items-center justify-center h-20 border-b border-gray-200 dark:border-gray-700">
             <a href="/" class="flex items-center gap-2 group">
-                <i class='bx bx-leaf text-eco-500 dark:text-eco-neon text-3xl group-hover:scale-110 transition-transform'></i>
+                <i class='bx bx-leaf text-eco-500 dark:text-eco-neon text-3xl group-hover:scale-110 transition-transform transform-gpu'></i>
                 <span class="font-bold text-xl tracking-tight">Admin Panel</span>
             </a>
         </div>
         
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-eco-50 text-eco-800 dark:bg-eco-900 dark:text-eco-neon font-medium transition-colors">
+            <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
                 <i class='bx bx-grid-alt text-xl'></i> Dashboard
             </a>
-            <a href="/admin/projects" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium transition-colors">
+            <a href="/admin/projects" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
                 <i class='bx bx-folder text-xl'></i> Projects
             </a>
-            <a href="/admin/services" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium transition-colors">
+            <a href="/admin/services" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
                 <i class='bx bx-layer text-xl'></i> Services
             </a>
-            <a href="/admin/blogs" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium transition-colors">
+            <a href="/admin/blogs" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
                 <i class='bx bx-pen text-xl'></i> Blog Posts
             </a>
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col overflow-hidden">
-        <header class="h-20 bg-white dark:bg-eco-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6">
-            <button @click="sidebarOpen = true" class="text-gray-500 lg:hidden focus:outline-none">
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <header class="h-20 bg-white dark:bg-eco-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 flex-shrink-0">
+            <button type="button" @click="sidebarOpen = true" class="text-gray-500 lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
                 <i class='bx bx-menu text-3xl'></i>
             </button>
+            
             <div class="flex items-center gap-4 ml-auto">
-                <button @click="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <button type="button" @click.stop="toggleTheme()" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-eco-500">
                     <i x-show="!isDark" class='bx bx-moon text-xl text-gray-600'></i>
                     <i x-show="isDark" class='bx bx-sun text-xl text-yellow-400' x-cloak></i>
                 </button>
-                <div class="h-8 w-8 rounded-full bg-eco-500 text-white flex items-center justify-center font-bold">
+                
+                <div class="h-10 w-10 rounded-full bg-eco-500 text-white flex items-center justify-center font-bold shadow-md cursor-pointer hover:bg-eco-600 transition-colors">
                     A
                 </div>
             </div>
         </header>
 
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-900 p-6 md:p-8">
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-900/50 p-6 md:p-8">
             <%- body %>
         </main>
     </div>
 
     <script>
-        function themeSwitcher() {
+        function adminStore() {
             return {
                 isDark: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+                sidebarOpen: false,
                 toggleTheme() {
                     this.isDark = !this.isDark;
                     localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
