@@ -1,0 +1,27 @@
+<header class="bg-white dark:bg-eco-800 shadow-sm transition-colors duration-300 sticky top-0 z-50">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+            
+            <a href="/" class="flex-shrink-0 flex items-center gap-2 group">
+                <i class='bx bx-leaf text-eco-500 dark:text-eco-neon text-2xl sm:text-3xl md:text-4xl transition-transform group-hover:scale-110'></i>
+                <span class="font-bold text-lg sm:text-xl md:text-2xl tracking-tight">Eco Tech Hub</span>
+            </a>
+
+            <nav class="flex items-center gap-4 sm:gap-6 md:gap-8">
+                <div class="hidden sm:flex items-center gap-6">
+                    <a href="/projects" class="text-sm md:text-base font-medium hover:text-eco-500 dark:hover:text-eco-neon transition-colors">Projects</a>
+                    <a href="/services" class="text-sm md:text-base font-medium hover:text-eco-500 dark:hover:text-eco-neon transition-colors">Services</a>
+                </div>
+
+                <button @click="toggleTheme()" aria-label="Toggle Dark Mode" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-eco-900 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-eco-500">
+                    <i x-show="!isDark" class='bx bx-moon text-xl text-gray-700'></i>
+                    <i x-show="isDark" class='bx bx-sun text-xl text-yellow-400' x-cloak></i>
+                </button>
+                
+                <button class="sm:hidden p-2 text-gray-600 dark:text-gray-300">
+                    <i class='bx bx-menu text-2xl'></i>
+                </button>
+            </nav>
+        </div>
+    </div>
+</header>
