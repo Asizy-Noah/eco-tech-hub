@@ -12,28 +12,29 @@ export class ProjectApiController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
-  async createProject(@Body() data, @UploadedFile() file: Express.Multer.File, @Res() res: Response) {
-    try {
-      // Fix TS2322: Initialize with string | null type
-      let imageUrl: string | null = null; 
-      if (file) imageUrl = await this.s3Service.uploadFile(file);
-
-      const project = await this.prisma.project.create({
-        data: {
-          title: data.title,
-          description: data.description,
-          techStack: data.techStack,
-          imageUrl: imageUrl,
-          projectUrl: data.projectUrl,
-          isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
-        },
-      });
-      return res.status(HttpStatus.CREATED).json(project);
-    } catch (error) {
-      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Creation failed' });
+@UseInterceptors(FileInterceptor('image')) // 'image' matches the name in FormData
+async createProject(@Body() data, @UploadedFile() file: Express.Multer.File, @Res() res: Response) {
+  try {
+    let imageUrl: string | null = null;
+    if (file) {
+      imageUrl = await this.s3Service.uploadFile(file); // Uploads to Cloudflare R2
     }
+
+    const project = await this.prisma.project.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        techStack: data.techStack,
+        imageUrl: imageUrl, // Saves the R2 Public URL in the database
+        projectUrl: data.projectUrl,
+        isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
+      },
+    });
+    return res.status(HttpStatus.CREATED).json(project);
+  } catch (error) {
+    return res.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
   }
+}
 
   @Put(':id')
   @UseInterceptors(FileInterceptor('image'))

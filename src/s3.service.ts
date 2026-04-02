@@ -9,13 +9,16 @@ export class S3Service {
   private readonly logger = new Logger(S3Service.name);
 
   constructor() {
+    if (!process.env.R2_BUCKET_NAME) {
+      this.logger.error('Environment variable R2_BUCKET_NAME is missing!');
+    }
+
     this.s3 = new S3Client({
       region: 'auto',
       endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       credentials: {
-        // Use non-null assertion (!) to fix TS2345
         accessKeyId: process.env.R2_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!, 
       },
     });
   }
