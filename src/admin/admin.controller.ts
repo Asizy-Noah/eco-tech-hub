@@ -53,4 +53,36 @@ export class AdminController {
       project // Pass the data to the view
     };
   }
+
+  // --- SERVICES VIEWS ---
+  @Get('services')
+  @Render('admin/services')
+  async getServicesPage() {
+    const services = await this.prisma.service.findMany({ orderBy: { createdAt: 'desc' } });
+    return { layout: 'layouts/admin', title: 'Manage Services | Eco Tech Hub', services };
+  }
+
+  @Get('services/new')
+  @Render('admin/services_new')
+  getNewServicePage() {
+    return { layout: 'layouts/admin', title: 'New Service | Eco Tech Hub' };
+  }
+
+  @Get('services/edit/:id')
+  @Render('admin/services_edit')
+  async getEditServicePage(@Param('id') id: string, @Res() res: Response) {
+    const service = await this.prisma.service.findUnique({ where: { id } });
+    
+    // If the service is not found, redirect and STOP execution
+    if (!service) {
+      return res.redirect('/admin/services');
+    }
+
+    // Pass the 'service' variable explicitly to the view
+    return { 
+      layout: 'layouts/admin', 
+      title: 'Edit Service | Eco Tech Hub',
+      service // Ensure this matches the name used in your EJS file
+    };
+  }
 }
