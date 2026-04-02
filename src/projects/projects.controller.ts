@@ -1,30 +1,68 @@
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Put, Delete, Body, Res, HttpStatus, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { PrismaService } from '../prisma.service';
+import { S3Service } from '../s3.service';
 import type { Response } from 'express';
 
 @Controller('api/projects')
 export class ProjectApiController {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private s3Service: S3Service
+  ) {}
 
   @Post()
-  async createProject(@Body() data, @Res() res: Response) {
+  @UseInterceptors(FileInterceptor('image'))
+  async createProject(@Body() data, @UploadedFile() file: Express.Multer.File, @Res() res: Response) {
     try {
+      // Fix TS2322: Initialize with string | null type
+      let imageUrl: string | null = null; 
+      if (file) imageUrl = await this.s3Service.uploadFile(file);
+
       const project = await this.prisma.project.create({
         data: {
           title: data.title,
           description: data.description,
           techStack: data.techStack,
-          imageUrl: data.imageUrl,
-          isEcoFriendly: data.isEcoFriendly === true || data.isEcoFriendly === 'true',
+          imageUrl: imageUrl,
+          projectUrl: data.projectUrl,
+          isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
         },
       });
-
       return res.status(HttpStatus.CREATED).json(project);
     } catch (error) {
-      console.error('Error creating project:', error);
-      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Could not create project' });
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Creation failed' });
     }
   }
 
-  
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('image'))
+  async updateProject(@Param('id') id: string, @Body() data, @UploadedFile() file: Express.Multer.File, @Res() res: Response) {
+    try {
+      const updateData: any = {
+        title: data.title,
+        description: data.description,
+        techStack: data.techStack,
+        projectUrl: data.projectUrl,
+        isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
+      };
+
+      if (file) updateData.imageUrl = await this.s3Service.uploadFile(file);
+
+      await this.prisma.project.update({ where: { id }, data: updateData });
+      return res.status(HttpStatus.OK).json({ message: 'Updated' });
+    } catch (error) {
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Update failed' });
+    }
+  }
+
+  @Delete(':id')
+  async deleteProject(@Param('id') id: string, @Res() res: Response) {
+    try {
+      await this.prisma.project.delete({ where: { id } });
+      return res.status(HttpStatus.OK).json({ message: 'Deleted' });
+    } catch (error) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Deletion failed' });
+    }
+  }
 }

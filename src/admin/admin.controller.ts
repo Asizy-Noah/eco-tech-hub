@@ -1,5 +1,6 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Param, Res } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import type { Response } from 'express';
 
 
 @Controller('admin')
@@ -37,5 +38,19 @@ export class AdminController {
   @Render('admin/projects_new')
   getNewProjectPage() {
     return { layout: 'layouts/admin', title: 'New Project | Eco Tech Hub' };
+  }
+
+  // Add this inside AdminController
+  @Get('projects/edit/:id')
+  @Render('admin/projects_edit')
+  async getEditProjectPage(@Param('id') id: string, @Res() res) {
+    const project = await this.prisma.project.findUnique({ where: { id } });
+    if (!project) return res.redirect('/admin/projects'); // Fallback if ID is invalid
+
+    return { 
+      layout: 'layouts/admin', 
+      title: 'Edit Project | Eco Tech Hub',
+      project // Pass the data to the view
+    };
   }
 }
