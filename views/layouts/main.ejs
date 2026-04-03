@@ -5,74 +5,47 @@
 </head>
 <body class="bg-white dark:bg-black text-black dark:text-white antialiased selection:bg-eco-500 selection:text-white">
     
-    <!-- Navigation -->
     <%- include('../partials/navbar') %>
 
-    <!-- Main Content -->
     <main class="min-h-screen overflow-x-hidden pt-16 sm:pt-20">
         <%- body %>
     </main>
 
-    <!-- Footer -->
     <%- include('../partials/footer') %>
 
     <div x-data="{ expanded: false }" 
          class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9999] flex flex-col items-end">
-        
         <a href="https://wa.me/256700000000?text=Hello%20Eco%20Tech%20Hub!%20I%20am%20interested%20in%20your%20services." 
            target="_blank" rel="noopener noreferrer"
            @mouseenter="expanded = true" 
            @mouseleave="expanded = false"
            class="group relative flex items-center justify-center bg-[#25D366] text-white rounded-full p-4 shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_40px_rgba(37,211,102,0.6)] transition-all duration-300 hover:-translate-y-1">
-            
             <div class="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-75"></div>
-            
-            <div class="relative z-10 flex items-center gap-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                 :class="expanded ? 'w-[130px] pr-2' : 'w-8'">
-                
+            <div class="relative z-10 flex items-center gap-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" :class="expanded ? 'w-[130px] pr-2' : 'w-8'">
                 <i class='bx bxl-whatsapp text-3xl shrink-0'></i>
-                
-                <span class="font-bold text-sm whitespace-nowrap pl-2 opacity-0 transition-opacity duration-300 delay-100"
-                      :class="expanded ? 'opacity-100' : 'opacity-0'">
+                <span class="font-bold text-sm whitespace-nowrap pl-2 opacity-0 transition-opacity duration-300 delay-100" :class="expanded ? 'opacity-100' : 'opacity-0'">
                     Chat with us
                 </span>
             </div>
         </a>
     </div>
 
-    <!-- Global Alpine.js Setup -->
     <script>
-      // Intersection Observer for lazy animation reveals
       document.addEventListener('alpine:init', () => {
-        Alpine.directive('animate-on-scroll', (el, { value }) => {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                el.classList.add('animate-fade-in');
-                observer.unobserve(el);
-              }
-            });
-          }, { threshold: 0.1, rootMargin: '-50px' });
-          
-          observer.observe(el);
-        });
-      });
-
-      // Smooth scroll anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href !== '#' && document.querySelector(href)) {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            const navHeight = document.querySelector('nav')?.offsetHeight || 80;
-            const targetTop = target.offsetTop - navHeight;
-            
-            window.scrollTo({
-              top: targetTop,
-              behavior: 'smooth'
-            });
-          }
+        // Fix smooth scroll anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+              e.preventDefault();
+              const target = document.querySelector(href);
+              const navHeight = document.querySelector('nav')?.offsetHeight || 80;
+              window.scrollTo({
+                top: target.offsetTop - navHeight,
+                behavior: 'smooth'
+              });
+            }
+          });
         });
       });
     </script>

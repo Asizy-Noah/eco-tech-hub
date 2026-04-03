@@ -15,7 +15,7 @@ async function bootstrap() {
 
   // Use process.cwd() to consistently point to the project root
   const rootPath = process.cwd();
-  
+   
   // Set paths relative to the project root
   app.useStaticAssets(join(rootPath, 'public')); 
   app.setBaseViewsDir(join(rootPath, 'views')); 
