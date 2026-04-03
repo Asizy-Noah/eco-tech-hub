@@ -1,0 +1,122 @@
+<div class="flex items-center justify-between mb-8">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Quote Requests</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage incoming project inquiries and estimates.</p>
+    </div>
+</div>
+
+<div x-data="quotesInbox()" class="bg-white dark:bg-eco-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 dark:bg-gray-900/50">
+                <tr>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Client Name</th>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Service</th>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Date</th>
+                    <th class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <% if (quotes.length === 0) { %>
+                    <tr><td colspan="4" class="px-6 py-12 text-center text-gray-500">No quote requests found.</td></tr>
+                <% } else { %>
+                    <% quotes.forEach(quote => { %>
+                        <tr id="row-<%= quote.id %>" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors <%= quote.isRead ? 'text-gray-600 dark:text-gray-400' : 'font-bold text-gray-900 dark:text-white bg-eco-50/30 dark:bg-eco-900/10' %>">
+                            <td class="px-6 py-4"><%= quote.name %></td>
+                            <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs"><%= quote.service || 'General' %></span></td>
+                            <td class="px-6 py-4 text-sm"><%= new Date(quote.createdAt).toLocaleDateString() %></td>
+                            <td class="px-6 py-4 text-right space-x-3">
+                                <button @click="openQuote({ id: '<%= quote.id %>', name: '<%= quote.name %>', email: '<%= quote.email %>', phone: '<%= quote.phone || 'N/A' %>', service: '<%= quote.service %>', message: `<%= quote.message.replace(/`/g, '\\`').replace(/\n/g, '\\n') %>`, date: '<%= new Date(quote.createdAt).toLocaleString() %>', isRead: <%= quote.isRead %> })" class="text-eco-500 hover:text-eco-600 font-medium text-sm">View Details</button>
+                                
+                                <button @click="deleteQuote('<%= quote.id %>')" class="text-gray-400 hover:text-red-500 transition-colors"><i class='bx bx-trash text-lg'></i></button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div x-show="activeQuote !== null" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" x-transition.opacity x-cloak>
+        <div @click.away="closeQuote" class="bg-white dark:bg-gray-900 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transform transition-all" x-show="activeQuote !== null" x-transition.scale.95>
+            
+            <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Quote Request Details</h3>
+                <button @click="closeQuote" class="text-gray-400 hover:text-gray-600 dark:hover:text-white"><i class='bx bx-x text-2xl'></i></button>
+            </div>
+
+            <div class="p-6 space-y-6" x-if="activeQuote">
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                        <span class="text-gray-500 block mb-1 text-xs uppercase tracking-wider">Client Name</span>
+                        <strong class="text-gray-900 dark:text-white text-base" x-text="activeQuote.name"></strong>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                        <span class="text-gray-500 block mb-1 text-xs uppercase tracking-wider">Contact Info</span>
+                        <div class="text-gray-900 dark:text-white font-medium break-all" x-text="activeQuote.email"></div>
+                        <div class="text-gray-500 mt-1" x-text="activeQuote.phone"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 block">Requested Service</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg font-medium text-sm border border-blue-200 dark:border-blue-800" x-text="activeQuote.service || 'General Inquiry'"></span>
+                </div>
+
+                <div>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 block">Message / Requirements</span>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed" x-text="activeQuote.message"></div>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                <span class="text-xs text-gray-500" x-text="'Received: ' + (activeQuote ? activeQuote.date : '')"></span>
+                <a :href="'mailto:' + (activeQuote ? activeQuote.email : '')" class="bg-eco-500 hover:bg-eco-600 text-white px-5 py-2 rounded-xl font-bold transition-all shadow-md flex items-center gap-2">
+                    <i class='bx bx-envelope'></i> Reply via Email
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function quotesInbox() {
+    return {
+        activeQuote: null,
+        
+        async openQuote(quote) {
+            this.activeQuote = quote;
+            
+            // If it's unread, mark it as read in DB and update UI instantly
+            if (!quote.isRead) {
+                try {
+                    await fetch(`/api/quotes/${quote.id}/read`, { method: 'PATCH' });
+                    
+                    // Visually update the row to "read" state
+                    const row = document.getElementById(`row-${quote.id}`);
+                    row.classList.remove('font-bold', 'text-gray-900', 'dark:text-white', 'bg-eco-50/30', 'dark:bg-eco-900/10');
+                    row.classList.add('text-gray-600', 'dark:text-gray-400');
+                    
+                    // Decrement the global unread badge in the sidebar!
+                    if (this.unreadQuotes > 0) this.unreadQuotes--;
+                    
+                    quote.isRead = true;
+                } catch (e) { console.error('Failed to mark as read'); }
+            }
+        },
+        
+        closeQuote() {
+            this.activeQuote = null;
+        },
+
+        async deleteQuote(id) {
+            if (confirm('Delete this quote request permanently?')) {
+                try {
+                    const res = await fetch(`/api/quotes/${id}`, { method: 'DELETE' });
+                    if (res.ok) window.location.reload();
+                } catch (e) {}
+            }
+        }
+    }
+}
+</script>

@@ -1,0 +1,122 @@
+<div class="flex items-center justify-between mb-8">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Contact Messages</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">General inquiries, feedback, and support requests.</p>
+    </div>
+</div>
+
+<div x-data="messagesInbox()" class="bg-white dark:bg-eco-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
+                <tr>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Sender</th>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Subject</th>
+                    <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase">Date</th>
+                    <th class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <% if (messages.length === 0) { %>
+                    <tr><td colspan="4" class="px-6 py-12 text-center text-gray-500">No messages found.</td></tr>
+                <% } else { %>
+                    <% messages.forEach(msg => { %>
+                        <tr id="msg-<%= msg.id %>" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors <%= msg.isRead ? 'text-gray-600 dark:text-gray-400' : 'font-bold text-gray-900 dark:text-white bg-blue-50/30 dark:bg-blue-900/10 border-l-4 border-blue-500' %>">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-xs font-bold text-gray-500 dark:text-gray-300">
+                                        <%= msg.name.charAt(0).toUpperCase() %>
+                                    </div>
+                                    <%= msg.name %>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm truncate max-w-xs"><%= msg.subject %></td>
+                            <td class="px-6 py-4 text-sm"><%= new Date(msg.createdAt).toLocaleDateString() %></td>
+                            <td class="px-6 py-4 text-right space-x-3">
+                                <button @click="openMsg({ id: '<%= msg.id %>', name: '<%= msg.name %>', email: '<%= msg.email %>', subject: `<%= msg.subject.replace(/`/g, '\\`') %>`, message: `<%= msg.message.replace(/`/g, '\\`').replace(/\n/g, '\\n') %>`, date: '<%= new Date(msg.createdAt).toLocaleString() %>', isRead: <%= msg.isRead %> })" class="text-blue-500 hover:text-blue-600 font-bold text-sm">Read</button>
+                                
+                                <button @click="deleteMsg('<%= msg.id %>')" class="text-gray-400 hover:text-red-500 transition-colors"><i class='bx bx-trash text-lg'></i></button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div x-show="activeMsg !== null" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" x-transition.opacity x-cloak>
+        <div @click.away="closeMsg" class="bg-white dark:bg-gray-900 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transform transition-all" x-show="activeMsg !== null" x-transition.scale.95>
+            
+            <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white" x-text="activeMsg?.subject"></h3>
+                <button @click="closeMsg" class="text-gray-400 hover:text-red-500 transition-colors"><i class='bx bx-x text-2xl'></i></button>
+            </div>
+
+            <div class="p-6 space-y-6" x-if="activeMsg">
+                <div class="flex justify-between items-start bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                    <div>
+                        <span class="text-gray-500 block mb-1 text-xs uppercase tracking-wider">From</span>
+                        <strong class="text-gray-900 dark:text-white text-base" x-text="activeMsg.name"></strong>
+                        <div class="text-gray-500 text-sm mt-0.5" x-text="activeMsg.email"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 font-medium" x-text="activeMsg.date"></span>
+                </div>
+
+                <div>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 block">Message</span>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed" x-text="activeMsg.message"></div>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex justify-end bg-gray-50 dark:bg-gray-800/50">
+                <a :href="'mailto:' + (activeMsg ? activeMsg.email : '') + '?subject=Re: ' + encodeURIComponent(activeMsg ? activeMsg.subject : '')" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-md flex items-center gap-2">
+                    <i class='bx bx-reply'></i> Reply to Message
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function messagesInbox() {
+    return {
+        activeMsg: null,
+        
+        async openMsg(msg) {
+            this.activeMsg = msg;
+            
+            // Mark as read immediately if it's unread
+            if (!msg.isRead) {
+                try {
+                    await fetch(`/api/messages/${msg.id}/read`, { method: 'PATCH' });
+                    
+                    // Visually update the row to "read" state
+                    const row = document.getElementById(`msg-${msg.id}`);
+                    row.classList.remove('font-bold', 'text-gray-900', 'dark:text-white', 'bg-blue-50/30', 'dark:bg-blue-900/10', 'border-l-4', 'border-blue-500');
+                    row.classList.add('text-gray-600', 'dark:text-gray-400');
+                    
+                    // Decrement the global unread badge in the sidebar
+                    if (window.adminStoreData && window.adminStoreData.unreadMessages > 0) {
+                        window.adminStoreData.unreadMessages--;
+                    }
+                    
+                    msg.isRead = true;
+                } catch (e) { console.error('Failed to mark as read'); }
+            }
+        },
+        
+        closeMsg() {
+            this.activeMsg = null;
+        },
+
+        async deleteMsg(id) {
+            if (confirm('Permanently delete this message?')) {
+                try {
+                    const res = await fetch(`/api/messages/${id}`, { method: 'DELETE' });
+                    if (res.ok) window.location.reload();
+                } catch (e) {}
+            }
+        }
+    }
+}
+</script>

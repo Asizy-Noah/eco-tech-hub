@@ -42,6 +42,18 @@
             <a href="/admin/blogs" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
                 <i class='bx bx-pen text-xl'></i> Blog Posts
             </a>
+            <a href="/admin/quotes" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
+                <div class="flex items-center gap-3">
+                    <i class='bx bx-receipt text-xl'></i> Quotes
+                </div>
+                <span x-show="unreadQuotes > 0" x-text="unreadQuotes" x-cloak class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"></span>
+            </a>
+            <a href="/admin/messages" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-eco-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-eco-600 dark:hover:text-eco-neon font-medium transition-colors">
+                <div class="flex items-center gap-3">
+                    <i class='bx bx-receipt text-xl'></i> Messages
+                </div>
+                <span x-show="unreadMessages > 0" x-text="unreadMessages" x-cloak class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"></span>
+            </a>
         </nav>
     </aside>
 
@@ -73,6 +85,16 @@
             return {
                 isDark: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
                 sidebarOpen: false,
+                unreadQuotes: 0, // NEW STATE
+                
+                async init() {
+                    // Fetch unread count when dashboard loads
+                    try {
+                        const res = await fetch('/api/quotes/unread-count');
+                        const data = await res.json();
+                        this.unreadQuotes = data.count;
+                    } catch (e) { console.error(e); }
+                },
                 toggleTheme() {
                     this.isDark = !this.isDark;
                     localStorage.setItem('theme', this.isDark ? 'dark' : 'light');

@@ -116,4 +116,32 @@ export class AdminController {
             blog // This defines the variable your EJS file is looking for
         });
     }
+
+    // --- QUOTES INBOX ---
+  @Get('quotes')
+  async getQuotesPage(@Res() res: Response) {
+    const quotes = await this.prisma.quote.findMany({ 
+      orderBy: { createdAt: 'desc' } 
+    });
+    return res.render('admin/quotes', { 
+      layout: 'layouts/admin', 
+      title: 'Quotes Inbox | Eco Tech Hub', 
+      quotes 
+    });
+  } 
+
+  // --- MESSAGES INBOX ---
+  @Get('messages')
+  async getMessagesPage(@Res() res: Response) {
+    const messages = await this.prisma.message.findMany({ 
+      orderBy: { createdAt: 'desc' } 
+    });
+    
+    // Using res.render manually to ensure stable headers
+    return res.render('admin/messages', { 
+      layout: 'layouts/admin', 
+      title: 'Contact Messages | Eco Tech Hub', 
+      messages 
+    });
+  }
 }

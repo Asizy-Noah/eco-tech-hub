@@ -8,6 +8,9 @@ import { ProjectApiController } from './projects/projects.controller';
 import { S3Service } from './s3.service';
 import { ServicesApiController } from './services/services.controller';
 import { BlogsApiController } from './blogs/blogs.controller';
+import { QuotesApiController } from './quotes/quotes.controller';
+import { MailService } from './mail.service';
+import { MessagesApiController } from './messages/messages.controller';
 
 @Module({
   imports: [],
@@ -18,7 +21,9 @@ import { BlogsApiController } from './blogs/blogs.controller';
     ProjectApiController,
     ServicesApiController,
     BlogsApiController,
+    QuotesApiController,
+    MessagesApiController,
   ],
-  providers: [AppService, PrismaService, S3Service],
+  providers: [AppService, PrismaService, S3Service, MailService],
 })
 export class AppModule {}
