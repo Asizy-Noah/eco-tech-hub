@@ -7,6 +7,7 @@ import { PrismaService } from './prisma.service';
 import { ProjectApiController } from './projects/projects.controller';
 import { S3Service } from './s3.service';
 import { ServicesApiController } from './services/services.controller';
+import { BlogsApiController } from './blogs/blogs.controller';
 
 @Module({
   imports: [],
@@ -16,6 +17,7 @@ import { ServicesApiController } from './services/services.controller';
     AuthController,
     ProjectApiController,
     ServicesApiController,
+    BlogsApiController,
   ],
   providers: [AppService, PrismaService, S3Service],
 })

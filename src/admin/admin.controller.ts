@@ -85,4 +85,35 @@ export class AdminController {
       service // Ensure this matches the name used in your EJS file
     };
   }
+
+  // --- BLOG VIEWS ---
+  @Get('blogs')
+  @Render('admin/blogs')
+  async getBlogsPage() {
+    const blogs = await this.prisma.blog.findMany({ orderBy: { createdAt: 'desc' } });
+    return { layout: 'layouts/admin', title: 'Manage Blogs', blogs };
+  }
+
+  @Get('blogs/new')
+  @Render('admin/blogs_new')
+  getNewBlogPage() {
+    return { layout: 'layouts/admin', title: 'New Blog' };
+  }
+
+  @Get('blogs/edit/:id')
+    async getEditBlogPage(@Param('id') id: string, @Res() res: Response) {
+        const blog = await this.prisma.blog.findUnique({ where: { id } });
+        
+        // If the blog doesn't exist, redirect safely
+        if (!blog) {
+            return res.redirect('/admin/blogs');
+        }
+
+        // Use res.render manually here to avoid @Render conflicts with redirect
+        return res.render('admin/blogs_edit', { 
+            layout: 'layouts/admin', 
+            title: 'Edit Post | Eco Tech Hub',
+            blog // This defines the variable your EJS file is looking for
+        });
+    }
 }

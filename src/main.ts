@@ -18,7 +18,7 @@ async function bootstrap() {
   
   // Set paths relative to the project root
   app.useStaticAssets(join(rootPath, 'public')); 
-  app.setBaseViewsDir(join(rootPath, 'views'));
+  app.setBaseViewsDir(join(rootPath, 'views')); 
   app.setViewEngine('ejs');
 
   app.set('layout', 'layouts/admin'); 
