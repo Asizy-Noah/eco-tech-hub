@@ -1,215 +1,225 @@
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden selection:bg-eco-500 selection:text-white">
-    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-eco-500/10 dark:bg-eco-500/5 blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-blue-500/10 dark:bg-blue-500/5 blur-[100px] pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden px-3 sm:px-6 lg:px-8 py-12 sm:py-20 bg-white dark:bg-black">
+  
+  <!-- Animated Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-10 w-64 sm:w-96 h-64 sm:h-96 bg-eco-500/15 dark:bg-eco-500/8 rounded-full blur-3xl sm:blur-[100px] animate-float" style="animation-duration: 6s;"></div>
+    <div class="absolute -bottom-20 right-5 sm:right-10 w-72 sm:w-[500px] h-72 sm:h-[500px] bg-eco-600/10 dark:bg-eco-600/5 rounded-full blur-3xl sm:blur-[120px] animate-float" style="animation-duration: 8s; animation-delay: 1s;"></div>
+  </div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
-        
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-eco-50 dark:bg-eco-900/30 text-eco-600 dark:text-eco-400 text-xs font-bold mb-8 uppercase tracking-widest border border-eco-100 dark:border-eco-800/50 shadow-sm transition-all duration-700 transform" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-eco-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-eco-500"></span>
-            </span>
-            Building the Sustainable Web
-        </div>
-        
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white mb-8 leading-[1.1] transition-all duration-700 delay-100 transform" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            High-End Web Dev.<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-eco-500 to-blue-500">Zero Carbon Footprint.</span>
-        </h1>
-        
-        <p class="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10 transition-all duration-700 delay-200 transform leading-relaxed" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            We believe acquiring a website is an act of sustainable development. By writing ruthlessly efficient code and moving physical services online, we radically reduce emissions for you and your clients.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row justify-center gap-4 transition-all duration-700 delay-300 transform" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            <a href="#contact" class="px-8 py-4 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-gray-900/20 dark:shadow-white/10">
-                Request a Quote
-            </a>
-            <a href="#portfolio" class="px-8 py-4 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold text-lg border border-gray-200 dark:border-gray-700 hover:border-eco-500 dark:hover:border-eco-500 transition-colors flex items-center justify-center gap-2 group">
-                View Our Work <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
-            </a>
-        </div>
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl mx-auto text-center" x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)">
+    
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md mb-6 sm:mb-8 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+         :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+      <span class="w-2 h-2 rounded-full bg-eco-500 animate-pulse"></span>
+      <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black/70 dark:text-white/70">✨ Digital Sustainability Experts</span>
     </div>
+    
+    <!-- Heading -->
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.2] text-black dark:text-white mb-3 sm:mb-6 transition-all duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      Premium Web.<br class="hidden sm:block">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-eco-500 via-eco-400 to-emerald-400">Zero Carbon Impact.</span>
+    </h1>
+    
+    <!-- Subheading -->
+    <p class="text-base sm:text-lg md:text-xl text-black/60 dark:text-white/60 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed transition-all duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)]"
+       :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      We engineer premium web applications that elevate your brand and drastically reduce your digital carbon emissions through uncompromising code efficiency.
+    </p>
+    
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 transition-all duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+         :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      <a href="/#contact" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-sm sm:text-base hover:shadow-2xl hover:shadow-black/30 dark:hover:shadow-white/20 transform hover:scale-105 active:scale-95 transition-all duration-300">
+        Request Estimate
+      </a>
+      <a href="#services" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-transparent text-black dark:text-white font-bold text-sm sm:text-base border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white hover:bg-black/5 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-2 group">
+        Explore Services <i class='bx bx-right-arrow-alt text-lg group-hover:translate-x-1 transition-transform'></i>
+      </a>
+    </div>
+  </div>
 </section>
 
-<section class="py-24 bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8" x-data="{ shown: false }" x-intersect.once="shown = true">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+<!-- Services Section -->
+<section id="services" class="py-16 sm:py-24 md:py-32 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/5 dark:border-white/5 bg-white dark:bg-black">
+  <div x-data="{ shown: false }" x-intersect.once.margin.-100px="shown = true">
+    
+    <!-- Section Header -->
+    <div class="mb-10 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      <h2 class="text-xs sm:text-sm font-bold tracking-widest uppercase text-eco-600 dark:text-eco-400 mb-2 sm:mb-3">Capabilities</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-black dark:text-white">What We Do.</h3>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+      <% if (services && services.length > 0) { %>
+        <% services.forEach((service, index) => { %>
+          <div class="group bg-white dark:bg-[#0f0f0f] p-5 sm:p-7 rounded-2xl border border-black/8 dark:border-white/8 hover:border-black/15 dark:hover:border-white/12 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-eco-500/10 transition-all duration-500 backdrop-blur-sm"
+               style="transition-delay: <%= index * 100 %>ms;"
+               :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
             
-            <div class="transition-all duration-700 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                <div class="w-14 h-14 rounded-2xl bg-eco-50 dark:bg-eco-900/30 flex items-center justify-center text-eco-500 text-3xl mb-6 shadow-sm border border-eco-100 dark:border-eco-800/50">
-                    <i class='bx bx-code-block'></i>
+            <!-- Icon -->
+            <div class="w-11 sm:w-12 h-11 sm:h-12 rounded-xl bg-gradient-to-br from-eco-50 to-eco-100 dark:from-eco-950 dark:to-eco-900 flex items-center justify-center mb-4 sm:mb-5 border border-eco-200 dark:border-eco-900 group-hover:from-eco-500 group-hover:to-eco-600 dark:group-hover:from-eco-500 dark:group-hover:to-eco-600 group-hover:border-eco-500 group-hover:shadow-lg group-hover:shadow-eco-500/20 transition-all duration-500">
+              <i class='bx <%= service.iconClass %> text-lg sm:text-xl text-eco-600 dark:text-eco-400 group-hover:text-white transition-colors duration-500'></i>
+            </div>
+            
+            <!-- Text -->
+            <h4 class="text-base sm:text-lg font-bold text-black dark:text-white mb-2 tracking-tight"><%= service.name %></h4>
+            <p class="text-black/60 dark:text-white/60 text-xs sm:text-sm leading-relaxed line-clamp-3"><%= service.description %></p>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="col-span-full text-center text-black/40 dark:text-white/40 py-10 text-xs sm:text-sm font-medium">Services syncing from backend...</div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-16 sm:py-24 md:py-32 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/5 dark:border-white/5 bg-white dark:bg-black">
+  <div x-data="{ shown: false }" x-intersect.once.margin.-100px="shown = true">
+    
+    <!-- Section Header -->
+    <div class="mb-10 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      <h2 class="text-xs sm:text-sm font-bold tracking-widest uppercase text-eco-600 dark:text-eco-400 mb-2 sm:mb-3">Our Work</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-black dark:text-white">Recent Projects.</h3>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
+      <% if (projects && projects.length > 0) { %>
+        <% projects.forEach((project, index) => { %>
+          <a href="<%= project.projectUrl || '#' %>" target="_blank" rel="noopener noreferrer" class="group block transition-all duration-1000 ease-out" style="transition-delay: <%= index * 150 %>ms;" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'">
+            
+            <!-- Image -->
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3] bg-black/5 dark:bg-white/5 mb-5 sm:mb-6 border border-black/10 dark:border-white/10 group-hover:border-black/20 dark:group-hover:border-white/20 transition-all duration-500">
+              <% if (project.imageUrl) { %>
+                <img src="<%= project.imageUrl %>" 
+                     alt="<%= project.title %>" 
+                     class="w-full h-full object-cover transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                     loading="lazy">
+              <% } else { %>
+                <div class="w-full h-full flex items-center justify-center text-black/20 dark:text-white/20">
+                  <i class='bx bx-image-alt text-5xl sm:text-6xl'></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Efficient Architecture</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Clean, lightweight code requires less server processing power, resulting in blazing-fast websites that consume significantly less electricity.</p>
+              <% } %>
+              
+              <!-- Tech Stack Badge -->
+              <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 flex flex-wrap gap-1.5 sm:gap-2 pointer-events-none">
+                <% if(project.techStack) { project.techStack.split(',').slice(0, 3).forEach(tech => { %>
+                  <span class="px-2.5 sm:px-3 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-white/95 dark:bg-black/90 backdrop-blur-md text-black dark:text-white rounded-full shadow-sm">
+                    <%= tech.trim() %>
+                  </span>
+                <% }) } %>
+              </div>
             </div>
+            
+            <!-- Content -->
+            <div>
+              <h4 class="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-black dark:text-white mb-2 sm:mb-3 flex items-center gap-2 group">
+                <%= project.title %> 
+                <i class='bx bx-right-top-arrow-circle text-black/30 dark:text-white/30 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-base sm:text-lg'></i>
+              </h4>
+              <p class="text-black/60 dark:text-white/60 text-xs sm:text-sm leading-relaxed max-w-lg"><%= project.description %></p>
+            </div>
+          </a>
+        <% }) %>
+      <% } else { %>
+        <div class="col-span-full text-center text-black/40 dark:text-white/40 py-12 text-sm font-medium">Portfolio syncing from backend...</div>
+      <% } %>
+    </div>
+  </div>
+</section>
 
-            <div class="transition-all duration-700 delay-100 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 text-3xl mb-6 shadow-sm border border-blue-100 dark:border-blue-800/50">
-                    <i class='bx bx-cloud'></i>
+<!-- Blog Section -->
+<section id="blog" class="py-16 sm:py-24 md:py-32 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-black/5 dark:border-white/5 bg-white dark:bg-black">
+  <div x-data="{ shown: false }" x-intersect.once.margin.-100px="shown = true">
+    
+    <!-- Section Header -->
+    <div class="mb-10 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+      <h2 class="text-xs sm:text-sm font-bold tracking-widest uppercase text-eco-600 dark:text-eco-400 mb-2 sm:mb-3">Insights</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-black dark:text-white">Journal.</h3>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <% if (blogs && blogs.length > 0) { %>
+        <% blogs.slice(0, 6).forEach((blog, index) => { %>
+          <a href="/blog/<%= blog.slug %>" class="group block transition-all duration-1000 ease-out" style="transition-delay: <%= index * 100 %>ms;" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+            
+            <!-- Blog Card -->
+            <div class="h-full flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 bg-black/2 dark:bg-white/2 hover:border-black/20 dark:hover:border-white/20 hover:bg-black/5 dark:hover:bg-white/8 transition-all duration-500 backdrop-blur-sm group-hover:shadow-lg">
+              
+              <!-- Image -->
+              <% if (blog.imageUrl) { %>
+                <div class="relative overflow-hidden rounded-lg mb-4 sm:mb-6 aspect-video bg-black/5 dark:bg-white/5">
+                  <img src="<%= blog.imageUrl %>" 
+                       alt="<%= blog.title %>" 
+                       class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                       loading="lazy">
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Digital Transformation</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">By moving physical processes to intuitive online services, your business radically reduces paper waste, physical infrastructure, and transport emissions.</p>
-            </div>
-
-            <div class="transition-all duration-700 delay-200 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                <div class="w-14 h-14 rounded-2xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 text-3xl mb-6 shadow-sm border border-purple-100 dark:border-purple-800/50">
-                    <i class='bx bx-mobile-alt'></i>
+              <% } %>
+              
+              <!-- Content -->
+              <div class="flex flex-col flex-grow">
+                <!-- Category -->
+                <div class="flex items-center gap-2 mb-3 sm:mb-4">
+                  <span class="text-xs font-bold uppercase tracking-wider text-eco-600 dark:text-eco-400"><%= blog.category || 'Article' %></span>
+                  <span class="text-black/30 dark:text-white/30">•</span>
+                  <span class="text-xs text-black/50 dark:text-white/50"><%= new Date(blog.createdAt).toLocaleDateString() %></span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Uncompromising UX</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Sustainability doesn't mean sacrifice. We deliver premium, highly-responsive designs with fluid animations that engage users flawlessly.</p>
+                
+                <!-- Title -->
+                <h4 class="text-base sm:text-lg font-bold text-black dark:text-white mb-2 sm:mb-3 group-hover:text-eco-600 transition-colors line-clamp-2"><%= blog.title %></h4>
+                
+                <!-- Description -->
+                <p class="text-black/60 dark:text-white/60 text-xs sm:text-sm leading-relaxed flex-grow line-clamp-3 mb-4"><%= blog.excerpt || blog.description %></p>
+                
+                <!-- Read More -->
+                <div class="flex items-center gap-2 text-eco-600 dark:text-eco-400 font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                  Read More <i class='bx bx-right-arrow-alt'></i>
+                </div>
+              </div>
             </div>
-
-        </div>
+          </a>
+        <% }) %>
+      <% } else { %>
+        <div class="col-span-full text-center text-black/40 dark:text-white/40 py-12 text-sm font-medium">Blog posts syncing from backend...</div>
+      <% } %>
     </div>
+
+    <!-- View All Link -->
+    <div class="flex justify-center mt-12 sm:mt-16">
+      <a href="/blog" class="px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-black/20 dark:border-white/20 text-black dark:text-white font-bold text-sm uppercase tracking-wide hover:border-black dark:hover:border-white hover:bg-black/5 dark:hover:bg-white/5 transition-all">
+        View All Articles
+      </a>
+    </div>
+  </div>
 </section>
 
-<section id="services" class="py-32 bg-gray-50 dark:bg-[#0b1120] relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8" x-data="{ shown: false }" x-intersect.once="shown = true">
-        <div class="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-            <h2 class="text-eco-500 font-bold tracking-widest text-sm uppercase mb-3">Capabilities</h2>
-            <h3 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">Eco-Tech Solutions.</h3>
-            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Everything you need to digitize your operations sustainably.</p>
-        </div>
+<!-- CTA Section -->
+<section id="contact" class="py-16 sm:py-24 md:py-32 px-3 sm:px-6 lg:px-8 relative overflow-hidden bg-black dark:bg-black">
+  
+  <!-- Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-10 sm:top-20 left-1/2 -translate-x-1/2 w-96 sm:w-[500px] h-64 sm:h-[300px] bg-eco-500/8 dark:bg-eco-500/5 rounded-full blur-3xl sm:blur-[100px]"></div>
+  </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <% if (services && services.length > 0) { %>
-                <% services.forEach((service, index) => { %>
-                    <div class="group bg-white dark:bg-gray-800/80 p-8 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-500 transform" 
-                         style="transition-delay: <%= index * 100 %>ms;"
-                         :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                        
-                        <div class="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center mb-8 border border-gray-100 dark:border-gray-700 group-hover:bg-eco-500 transition-colors duration-500">
-                            <i class='bx <%= service.iconClass %> text-3xl text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors duration-500'></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-eco-500 transition-colors"><%= service.name %></h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed"><%= service.description %></p>
-                    </div>
-                <% }) %>
-            <% } else { %>
-                <div class="col-span-full text-center text-gray-500 py-12">Services are currently being updated.</div>
-            <% } %>
-        </div>
+  <!-- Content -->
+  <div class="relative z-10 max-w-3xl mx-auto text-center text-white">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter mb-3 sm:mb-5">Ready to Go Green?</h2>
+    <p class="text-sm sm:text-base md:text-lg text-white/60 max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed">Let&apos;s discuss how we can build your next project with sustainability and premium design at its core.</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+      <a href="mailto:hello@ecotechhub.com" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-eco-500 hover:bg-eco-600 text-white font-bold text-sm sm:text-base uppercase tracking-wide transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-eco-500/20">
+        Get In Touch
+      </a>
+      <a href="#services" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/20 text-white font-bold text-sm sm:text-base uppercase tracking-wide hover:border-white hover:bg-white/10 transition-all">
+        Learn More
+      </a>
     </div>
-</section>
-
-<section id="portfolio" class="py-32 bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8" x-data="{ shown: false }" x-intersect.once="shown = true">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 transition-all duration-700 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-            <div class="max-w-2xl">
-                <h2 class="text-blue-500 font-bold tracking-widest text-sm uppercase mb-3">Our Work</h2>
-                <h3 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">Recent Projects.</h3>
-            </div>
-            <a href="#" class="hidden md:flex items-center gap-2 font-bold text-gray-900 dark:text-white hover:text-blue-500 transition-colors group">
-                View All Projects <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
-            <% if (projects && projects.length > 0) { %>
-                <% projects.forEach((project, index) => { %>
-                    <a href="<%= project.projectUrl || '#' %>" target="_blank" class="group block transition-all duration-700 transform" style="transition-delay: <%= index * 150 %>ms;" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'">
-                        <div class="relative overflow-hidden rounded-3xl aspect-[4/3] bg-gray-100 dark:bg-gray-800 mb-6 border border-gray-200 dark:border-gray-700">
-                            <% if (project.imageUrl) { %>
-                                <img src="<%= project.imageUrl %>" alt="<%= project.title %>" class="object-cover w-full h-full transform transition-transform duration-700 group-hover:scale-105">
-                            <% } else { %>
-                                <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                    <i class='bx bx-image-alt text-6xl'></i>
-                                </div>
-                            <% } %>
-                            
-                            <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
-                                <% if(project.techStack) { project.techStack.split(',').forEach(tech => { %>
-                                    <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-gray-900/90 backdrop-blur-md text-gray-900 dark:text-white rounded-full shadow-sm">
-                                        <%= tech.trim() %>
-                                    </span>
-                                <% }) } %>
-                            </div>
-                            
-                            <% if(project.isEcoFriendly) { %>
-                                <div class="absolute top-4 right-4 w-8 h-8 bg-eco-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-eco-500/30" title="Eco-Friendly Verified">
-                                    <i class='bx bx-leaf'></i>
-                                </div>
-                            <% } %>
-                        </div>
-                        
-                        <h4 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors flex items-center gap-2">
-                            <%= project.title %> <i class='bx bx-link-external opacity-0 group-hover:opacity-100 transition-opacity'></i>
-                        </h4>
-                        <p class="text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed"><%= project.description %></p>
-                    </a>
-                <% }) %>
-            <% } else { %>
-                <div class="col-span-full text-center text-gray-500 py-12">Portfolio is currently being updated.</div>
-            <% } %>
-        </div>
-    </div>
-</section>
-
-<section id="blog" class="py-32 bg-gray-50 dark:bg-[#0b1120] relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full opacity-5 dark:opacity-10 pointer-events-none" style="background-image: radial-gradient(#10b981 1px, transparent 1px); background-size: 40px 40px;"></div>
-
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10" x-data="{ shown: false }" x-intersect.once="shown = true">
-        <div class="text-center max-w-3xl mx-auto mb-20 transition-all duration-700 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-            <h2 class="text-purple-500 font-bold tracking-widest text-sm uppercase mb-3">Insights</h2>
-            <h3 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">Sustainability Journal.</h3>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <% if (blogs && blogs.length > 0) { %>
-                <% blogs.forEach((blog, index) => { %>
-                    <a href="/blog/<%= blog.slug %>" class="group block bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-500 transform" style="transition-delay: <%= index * 100 %>ms;" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                        
-                        <% 
-                            let excerpt = "Read the full article...";
-                            try {
-                                const blocks = JSON.parse(blog.content);
-                                const textBlock = blocks.find(b => b.type === 'intro' || b.type === 'paragraph');
-                                if (textBlock && textBlock.content) {
-                                    // Strip HTML tags for the preview
-                                    excerpt = textBlock.content.replace(/<[^>]*>?/gm, '').substring(0, 120) + '...';
-                                }
-                            } catch(e) {}
-                        %>
-
-                        <div class="text-xs font-bold text-gray-400 dark:text-gray-500 mb-4 tracking-widest uppercase">
-                            <%= new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-purple-500 transition-colors leading-snug">
-                            <%= blog.title %>
-                        </h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-                            <%= excerpt %>
-                        </p>
-                        
-                        <div class="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-500 transition-colors mt-auto">
-                            Read Article <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
-                        </div>
-                    </a>
-                <% }) %>
-            <% } else { %>
-                <div class="col-span-full text-center text-gray-500 py-12">No articles published yet.</div>
-            <% } %>
-        </div>
-    </div>
-</section>
-
-<section id="contact" class="py-24 bg-eco-500 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10" x-data="{ shown: false }" x-intersect.once="shown = true">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 transition-all duration-700 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            Ready to digitize your impact?
-        </h2>
-        <p class="text-eco-100 text-xl mb-10 max-w-2xl mx-auto transition-all duration-700 delay-100 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            Let's build a high-performance web solution that elevates your brand and respects our planet.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4 transition-all duration-700 delay-200 transform" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-            <a href="/contact" class="px-8 py-4 rounded-xl bg-gray-900 text-white font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-gray-900/20">
-                Get an Estimate
-            </a>
-            <a href="mailto:hello@ecotechhub.com" class="px-8 py-4 rounded-xl bg-transparent text-white font-bold text-lg border border-white/30 hover:bg-white/10 transition-colors">
-                Email Us Directly
-            </a>
-        </div>
-    </div>
+  </div>
 </section>

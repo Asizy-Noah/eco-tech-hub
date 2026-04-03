@@ -1,0 +1,40 @@
+<article class="relative pt-32 pb-24 md:pt-48 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-[1000px] mx-auto overflow-hidden">
+    
+    <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+        
+        <div class="mb-12 transition-all duration-700 ease-out transform" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+            <div class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40 mb-6">
+                <span class="px-3 py-1 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md">Legal Documentation</span>
+                <span>Last Updated: April 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-black dark:text-white leading-[1.05]">
+                Terms of Service
+            </h1>
+        </div>
+
+        <hr class="border-black/10 dark:border-white/10 mb-16 transition-all duration-700 delay-100 transform" :class="show ? 'opacity-100' : 'opacity-0'">
+
+        <div class="prose prose-lg dark:prose-invert max-w-3xl mx-auto font-medium text-black/70 dark:text-white/70 leading-relaxed transition-all duration-1000 delay-200 transform" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+            
+            <p>Welcome to Eco Tech Hub. By accessing our website or engaging our services, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-black dark:text-white mb-4 mt-12">1. Our Services</h2>
+            <p>Eco Tech Hub provides high-end, sustainable web development, eco-hosting setup, and digital transformation consulting. The specifics of any project will be outlined in a separate, mutually agreed-upon Statement of Work or contract.</p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-black dark:text-white mb-4 mt-12">2. Client Responsibilities</h2>
+            <p>You agree to provide timely feedback and necessary materials required for us to complete your project. Delays in client communication may result in adjusted project timelines.</p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-black dark:text-white mb-4 mt-12">3. Intellectual Property</h2>
+            <p>Upon full payment, the intellectual property rights of the custom code and designs created for your specific project will be transferred to you, excluding any open-source libraries or pre-existing proprietary tools used in the development.</p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-black dark:text-white mb-4 mt-12">4. Sustainable Commitment</h2>
+            <p>We reserve the right to decline projects that fundamentally conflict with our core mission of environmental sustainability and carbon footprint reduction.</p>
+
+        </div>
+    </div>
+</article>
+
+<style>
+    .prose p { margin-bottom: 1.5em; }
+    .prose h2 { scroll-margin-top: 100px; }
+</style>

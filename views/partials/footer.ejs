@@ -1,58 +1,121 @@
-<footer class="bg-[#0b1120] text-gray-300 pt-24 pb-10 border-t border-gray-800 relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-eco-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+<footer class="relative bg-black dark:bg-black text-white pt-16 sm:pt-20 md:pt-28 pb-6 md:pb-10 border-t border-white/5 dark:border-white/10 overflow-hidden">
+  
+  <!-- Animated Background Elements -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 sm:w-[500px] h-96 sm:h-[500px] bg-eco-500/3 rounded-full blur-3xl sm:blur-[120px] pointer-events-none animate-pulse" style="animation-duration: 4s;"></div>
+  <div class="absolute bottom-0 right-0 w-64 sm:w-[300px] h-64 sm:h-[300px] bg-eco-600/3 rounded-full blur-3xl sm:blur-[100px] pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
-            
-            <div class="lg:col-span-4">
-                <a href="/" class="flex items-center gap-2 mb-6 group">
-                    <div class="w-10 h-10 rounded-xl bg-eco-500/20 flex items-center justify-center">
-                        <i class='bx bx-leaf text-eco-500 text-2xl group-hover:-rotate-12 transition-transform duration-300'></i>
-                    </div>
-                    <span class="font-black text-2xl tracking-tight text-white">Eco Tech Hub<span class="text-eco-500">.</span></span>
-                </a>
-                <p class="text-gray-400 leading-relaxed text-sm pr-4">
-                    Pioneering sustainable digital solutions. We engineer high-performance web applications designed to minimize global carbon footprints while maximizing your digital brand impact.
-                </p>
-                <div class="flex items-center gap-4 mt-8">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-linkedin text-xl'></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-twitter text-xl'></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-github text-xl'></i></a>
-                </div>
-            </div>
-
-            <div class="lg:col-span-2 lg:col-start-7">
-                <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Navigation</h4>
-                <ul class="space-y-4 text-sm font-medium">
-                    <li><a href="/#services" class="hover:text-eco-500 transition-colors">Our Services</a></li>
-                    <li><a href="/#portfolio" class="hover:text-eco-500 transition-colors">Portfolio</a></li>
-                    <li><a href="/#blog" class="hover:text-eco-500 transition-colors">Journal</a></li>
-                    <li><a href="/#contact" class="hover:text-eco-500 transition-colors">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="lg:col-span-4">
-                <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Join the Green Tech Movement</h4>
-                <p class="text-sm text-gray-400 mb-4">Subscribe for insights on sustainable development and digital innovation.</p>
-                <form class="flex relative group">
-                    <input type="email" placeholder="Enter your email address" required 
-                           class="w-full bg-gray-800/50 border border-gray-700 text-white px-5 py-3 rounded-xl outline-none focus:border-eco-500 transition-colors text-sm pr-32">
-                    <button type="submit" class="absolute right-1 top-1 bottom-1 bg-eco-500 hover:bg-eco-600 text-white font-bold px-6 rounded-lg text-sm transition-colors shadow-lg shadow-eco-500/20">
-                        Subscribe
-                    </button>
-                </form>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 mb-8 md:mb-12">
+      
+      <!-- Brand Section -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <a href="/" class="flex items-center gap-2 mb-3 sm:mb-4 group">
+          <div class="w-9 sm:w-10 h-9 sm:h-10 rounded-lg bg-gradient-to-br from-eco-400 to-eco-600 flex items-center justify-center font-bold text-white text-xs sm:text-sm transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-eco-500/30">
+            ET
+          </div>
+          <span class="font-bold text-lg sm:text-xl tracking-tight">Eco Tech<span class="text-eco-400">.</span></span>
+        </a>
+        <p class="text-white/50 dark:text-white/60 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
+          Engineering premium, sustainable web applications that minimize carbon footprints while maximizing digital impact.
+        </p>
+        
+        <!-- Social Links -->
+        <div class="flex items-center gap-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-eco-500 text-white/70 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <i class='bx bxl-linkedin text-lg'></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-eco-500 text-white/70 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <i class='bx bxl-twitter text-lg'></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-eco-500 text-white/70 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <i class='bx bxl-github text-lg'></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 hover:bg-eco-500 text-white/70 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110">
+            <i class='bx bxl-dribbble text-lg'></i>
+          </a>
         </div>
+      </div>
 
-        <div class="border-t border-gray-800/80 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium text-gray-500">
-            <p>&copy; <%= new Date().getFullYear() %> Eco Tech Hub. All rights reserved.</p>
-            <div class="flex items-center gap-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-                <a href="/admin/login" class="hover:text-eco-500 transition-colors flex items-center gap-1">
-                    <i class='bx bx-lock-alt'></i> Admin Login
-                </a>
-            </div>
-        </div>
+      <!-- Services Links -->
+      <div>
+        <h3 class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Services</h3>
+        <ul class="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+          <li><a href="/#services" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Web Development
+          </a></li>
+          <li><a href="/#services" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            UI/UX Design
+          </a></li>
+          <li><a href="/#services" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Optimization
+          </a></li>
+          <li><a href="/#services" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Consulting
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div>
+        <h3 class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Company</h3>
+        <ul class="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+          <li><a href="/#portfolio" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Our Work
+          </a></li>
+          <li><a href="/#blog" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Journal
+          </a></li>
+          <li><a href="#" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            About Us
+          </a></li>
+          <li><a href="#" class="text-white/60 hover:text-eco-400 transition-colors duration-200 flex items-center gap-2 group">
+            <span class="w-1 h-1 bg-eco-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            Careers
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Updates</h3>
+        <p class="text-white/50 dark:text-white/60 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">Get insights on sustainable tech delivered to your inbox.</p>
+        <form class="space-y-2" @submit.prevent>
+          <div class="relative group">
+            <input type="email" 
+                   placeholder="Your email" 
+                   required
+                   class="w-full bg-white/5 border border-white/10 text-white placeholder-white/40 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:border-eco-500 focus:bg-white/10 transition-all duration-200">
+          </div>
+          <button type="submit" 
+                  class="w-full bg-eco-500 hover:bg-eco-600 text-white font-bold py-2.5 rounded-lg text-sm uppercase tracking-wide transition-colors duration-200 transform hover:scale-105 active:scale-95">
+            Subscribe
+          </button>
+        </form>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <div class="border-t border-white/5 dark:border-white/10 my-6 sm:my-8 md:my-10"></div>
+
+    <!-- Bottom Section -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-xs sm:text-sm text-white/40 dark:text-white/50">
+      <p>&copy; <%= new Date().getFullYear() %> Eco Tech Hub. Building sustainable futures.</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-white/80 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white/80 transition-colors">Terms of Service</a>
+        <a href="/admin/login" class="hover:text-eco-400 transition-colors flex items-center gap-1">
+          <i class='bx bx-lock-alt text-base'></i> Admin
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>

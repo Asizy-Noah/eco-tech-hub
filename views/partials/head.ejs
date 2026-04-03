@@ -1,36 +1,194 @@
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%- locals.title || 'Eco Tech Hub | Premium Sustainable Web Development' %></title>
-<meta name="description" content="High-end web development focusing on sustainable, low-carbon digital solutions.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<link href="/css/style.css" rel="stylesheet">
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- SEO & Meta Tags -->
+<meta name="description" content="Premium sustainable digital solutions. We engineer high-performance web applications with zero carbon footprint.">
+<meta name="keywords" content="sustainable design, eco-friendly web, green technology, carbon-neutral development">
+<meta name="author" content="Eco Tech Hub">
+<meta name="theme-color" content="#10b981">
 
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eco Tech Hub - Sustainable Digital Solutions">
+<meta property="og:description" content="Premium web applications designed for sustainability and performance.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2310b981'>🌿</text></svg>">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 <script>
-    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
+  tailwindConfig = {
+    theme: {
+      extend: {
+        colors: {
+          'eco': {
+            50: '#f0fdf4',
+            100: '#dcfce7',
+            200: '#bbf7d0',
+            300: '#86efac',
+            400: '#4ade80',
+            500: '#22c55e',
+            600: '#16a34a',
+            700: '#15803d',
+            800: '#166534',
+            900: '#145231',
+          }
+        },
+        fontFamily: {
+          sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        animation: {
+          'fade-in': 'fadeIn 0.6s ease-out',
+          'slide-up': 'slideUp 0.6s ease-out',
+          'slide-down': 'slideDown 0.3s ease-in-out',
+          'float': 'float 3s ease-in-out infinite',
+          'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        },
+        keyframes: {
+          fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+          },
+          slideUp: {
+            '0%': { opacity: '0', transform: 'translateY(20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          slideDown: {
+            '0%': { opacity: '0', transform: 'translateY(-20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          float: {
+            '0%, 100%': { transform: 'translateY(0px)' },
+            '50%': { transform: 'translateY(-10px)' },
+          },
+          pulseGlow: {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '0.5' },
+          },
+        },
+      },
+    },
+  }
 </script>
 
-<style>
-    /* Alpine Cloak - Hides elements until Alpine is initialized */
-    [x-cloak] { display: none !important; }
-    
-    /* High-End Typography & Scroll Behaviors */
-    html { scroll-behavior: smooth; }
-    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    
-    /* Custom Scrollbar for a premium feel */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
-    ::-webkit-scrollbar-thumb:hover { background: #10b981; } /* Eco Green Hover */
+<!-- Boxicons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
 
-    /* Global Entry Animations */
-    .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+<!-- Alpine.js for interactivity -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Dark Mode Script (prevents FOUC - Flash of Unstyled Content) -->
+<script>
+  (function() {
+    const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+
+<!-- Custom Styles -->
+<style>
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-eco-500 text-white;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black/5 dark:bg-white/5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-black/20 dark:bg-white/20 rounded-full hover:bg-black/30 dark:hover:bg-white/30;
+  }
+
+  /* Glass morphism effect - true black dark mode */
+  .glass {
+    @apply backdrop-blur-xl bg-white/10 dark:bg-[#0a0a0a]/40 border border-white/20 dark:border-white/5;
+  }
+
+  /* Smooth transitions */
+  * {
+    @apply transition-colors duration-300;
+  }
+
+  /* Prevent FOUC for dark mode */
+  body.no-transition * {
+    transition: none !important;
+  }
+
+  /* Enhanced animations for premium feel */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* Stagger effect for child elements */
+  .stagger > * {
+    animation-delay: var(--delay, 0);
+  }
 </style>
+
+<title>Eco Tech Hub - Sustainable Digital Solutions</title>

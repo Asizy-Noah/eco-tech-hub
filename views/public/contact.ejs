@@ -1,0 +1,154 @@
+<section class="relative min-h-[90vh] pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto flex items-center" x-data="contactForms()">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 w-full">
+        
+        <div class="flex flex-col justify-center" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-md mb-8 w-fit transition-all duration-1000 ease-out" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                <span class="w-2 h-2 rounded-full bg-eco-500 animate-pulse"></span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-black/60 dark:text-white/60">Available for new projects</span>
+            </div>
+            
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-black dark:text-white leading-[1.05] mb-6 transition-all duration-1000 delay-100 ease-out" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                Let's build<br>something <span class="text-transparent bg-clip-text bg-gradient-to-r from-eco-500 to-blue-500">better.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-black/60 dark:text-white/60 mb-12 max-w-md transition-all duration-1000 delay-200 ease-out" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                Whether you need a high-end web application or want to digitize your services sustainably, our team is ready to deliver.
+            </p>
+
+            <div class="space-y-6 transition-all duration-1000 delay-300 ease-out" :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center text-eco-500 text-xl"><i class='bx bx-envelope'></i></div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Email Us</div>
+                        <a href="mailto:hello@ecotechhub.com" class="font-bold text-black dark:text-white hover:text-eco-500 transition-colors">hello@ecotechhub.com</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center text-eco-500 text-xl"><i class='bx bx-map'></i></div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Location</div>
+                        <div class="font-bold text-black dark:text-white">Kampala, Uganda</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 bg-white/50 dark:bg-[#0b1120]/50 backdrop-blur-2xl p-8 sm:p-12 rounded-[2.5rem] border border-black/10 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.02)] transition-all duration-1000 delay-300 ease-out transform translate-y-0">
+            
+            <div class="flex p-1 bg-black/5 dark:bg-white/5 rounded-full mb-10">
+                <button @click="mode = 'quote'; success = false" 
+                        class="flex-1 py-3 text-sm font-bold rounded-full transition-all duration-300"
+                        :class="mode === 'quote' ? 'bg-white dark:bg-[#1a1a1a] shadow-md text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'">
+                    Request Estimate
+                </button>
+                <button @click="mode = 'message'; success = false" 
+                        class="flex-1 py-3 text-sm font-bold rounded-full transition-all duration-300"
+                        :class="mode === 'message' ? 'bg-white dark:bg-[#1a1a1a] shadow-md text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'">
+                    General Message
+                </button>
+            </div>
+
+            <div x-show="success" x-cloak x-transition class="text-center py-16">
+                <div class="w-20 h-20 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-4xl mx-auto mb-6">
+                    <i class='bx bx-check'></i>
+                </div>
+                <h3 class="text-2xl font-bold text-black dark:text-white mb-2">Received Successfully</h3>
+                <p class="text-black/60 dark:text-white/60">Thank you for reaching out. Our team will review your details and respond shortly.</p>
+                <button @click="success = false; resetForm()" class="mt-8 text-sm font-bold text-eco-500 hover:text-black dark:hover:text-white transition-colors">Send another</button>
+            </div>
+
+            <form x-show="!success" @submit.prevent="submit" class="space-y-6" x-transition>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Name *</label>
+                        <input type="text" x-model="formData.name" required class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Email *</label>
+                        <input type="email" x-model="formData.email" required class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white">
+                    </div>
+                </div>
+
+                <div x-show="mode === 'quote'" x-transition.opacity class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Phone</label>
+                        <input type="tel" x-model="formData.phone" class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Service of Interest</label>
+                        <select x-model="formData.service" class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white appearance-none">
+                            <option value="">Select a Service</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Eco-Hosting Setup">Eco-Hosting Setup</option>
+                            <option value="Billing Systems">Billing Systems</option>
+                            <option value="Digital Transformation">Digital Transformation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div x-show="mode === 'message'" x-transition.opacity>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Subject</label>
+                    <input type="text" x-model="formData.subject" class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 mb-2">Project Details / Message *</label>
+                    <textarea x-model="formData.message" rows="4" required class="w-full bg-black/5 dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-eco-500 transition-colors text-black dark:text-white resize-none"></textarea>
+                </div>
+
+                <div x-show="error" x-text="error" class="text-sm font-bold text-red-500" x-cloak></div>
+
+                <button type="submit" :disabled="loading" class="w-full py-4 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg hover:bg-eco-500 dark:hover:bg-eco-500 hover:text-white transition-colors shadow-xl shadow-black/20 dark:shadow-white/10 flex items-center justify-center gap-2">
+                    <span x-text="mode === 'quote' ? 'Submit Estimate Request' : 'Send Message'"></span>
+                    <i x-show="loading" class='bx bx-loader-alt animate-spin'></i>
+                </button>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<script>
+function contactForms() {
+    return {
+        // Automatically set mode to 'quote' if URL has ?service= query parameter
+        mode: new URLSearchParams(window.location.search).has('service') ? 'quote' : 'message',
+        loading: false,
+        success: false,
+        error: '',
+        formData: {
+            name: '', email: '', phone: '', subject: '', service: new URLSearchParams(window.location.search).get('service') || '', message: ''
+        },
+        resetForm() {
+            this.formData = { name: '', email: '', phone: '', subject: '', service: '', message: '' };
+        },
+        async submit() {
+            this.loading = true;
+            this.error = '';
+            
+            // Determine endpoint based on selected mode
+            const endpoint = this.mode === 'quote' ? '/api/quotes' : '/api/messages';
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.formData)
+                });
+                
+                if (res.ok) {
+                    this.success = true;
+                } else {
+                    throw new Error('Submission failed. Please try again.');
+                }
+            } catch (err) {
+                this.error = err.message;
+            } finally {
+                this.loading = false;
+            }
+        }
+    }
+}
+</script>

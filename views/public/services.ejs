@@ -1,0 +1,60 @@
+<section class="relative pt-40 pb-16 md:pt-48 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto text-center overflow-hidden">
+    <div class="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-eco-500/10 dark:bg-eco-500/10 blur-[120px] pointer-events-none"></div>
+    
+    <div class="relative z-10" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+        <h1 class="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black dark:text-white mb-6 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+            Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-eco-500 to-blue-500">Capabilities.</span>
+        </h1>
+        <p class="text-lg md:text-2xl text-black/60 dark:text-white/60 max-w-3xl mx-auto transition-all duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] leading-relaxed"
+           :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+            We engineer bespoke, zero-carbon digital solutions that drive your business forward without leaving a mark on the planet.
+        </p>
+    </div>
+</section>
+
+<section class="pb-32 px-4 sm:px-6 lg:px-8 max-w-[1200px] mx-auto relative z-10">
+    <div class="space-y-24 md:space-y-40">
+        <% if (services && services.length > 0) { %>
+            <% services.forEach((service, index) => { %>
+                <div x-data="{ shown: false }" x-intersect.once.margin.-100px="shown = true" 
+                     class="flex flex-col <%= index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row' %> items-center gap-12 lg:gap-24 transition-all duration-1000 ease-out"
+                     :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'">
+                    
+                    <div class="w-full md:w-5/12 flex justify-center">
+                        <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/10 dark:border-white/10 group hover:border-eco-500 transition-colors duration-500 shadow-2xl">
+                            <div class="absolute inset-0 rounded-full bg-eco-500/20 blur-2xl group-hover:bg-eco-500/40 transition-colors duration-500"></div>
+                            <i class='bx <%= service.iconClass %> text-7xl md:text-9xl text-black dark:text-white relative z-10 group-hover:scale-110 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]'></i>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-7/12 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 text-black dark:text-white text-[10px] font-bold uppercase tracking-widest mb-6">
+                            Capability <%- (index + 1).toString().padStart(2, '0') %>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-black dark:text-white mb-6">
+                            <%= service.name %>
+                        </h2>
+                        <p class="text-lg text-black/60 dark:text-white/60 leading-relaxed mb-8">
+                            <%= service.description %>
+                        </p>
+                        <a href="/contact?service=<%= encodeURIComponent(service.name) %>" class="inline-flex items-center gap-2 font-bold text-eco-600 dark:text-eco-400 hover:text-black dark:hover:text-white transition-colors group uppercase tracking-widest text-sm border-b-2 border-transparent hover:border-eco-500 pb-1">
+                            Discuss this service <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-2 transition-transform'></i>
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="text-center py-20 text-black/50 dark:text-white/50">Services catalog is currently being updated.</div>
+        <% } %>
+    </div>
+</section>
+
+<section class="py-24 border-t border-black/10 dark:border-white/10 bg-black/5 dark:bg-[#0b1120]">
+    <div class="max-w-4xl mx-auto px-6 text-center" x-data="{ shown: false }" x-intersect="shown = true">
+        <h2 class="text-3xl md:text-5xl font-black text-black dark:text-white mb-8 transition-all duration-700" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">Ready to minimize your footprint?</h2>
+        <a href="/contact" class="px-8 py-4 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-black/20 dark:shadow-white/10 inline-block transition-all duration-700 delay-100" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+            Start Your Project
+        </a>
+    </div>
+</section>
