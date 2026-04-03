@@ -1,20 +1,58 @@
-<footer class="bg-white dark:bg-eco-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 mt-auto">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        
-        <div class="flex items-center gap-2">
-            <i class='bx bx-globe text-eco-500 dark:text-eco-neon text-xl'></i>
-            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center sm:text-left">
-                &copy; <span x-text="new Date().getFullYear()"></span> Eco Technologies Hub. Climate-friendly development.
-            </p>
+<footer class="bg-[#0b1120] text-gray-300 pt-24 pb-10 border-t border-gray-800 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-eco-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+            
+            <div class="lg:col-span-4">
+                <a href="/" class="flex items-center gap-2 mb-6 group">
+                    <div class="w-10 h-10 rounded-xl bg-eco-500/20 flex items-center justify-center">
+                        <i class='bx bx-leaf text-eco-500 text-2xl group-hover:-rotate-12 transition-transform duration-300'></i>
+                    </div>
+                    <span class="font-black text-2xl tracking-tight text-white">Eco Tech Hub<span class="text-eco-500">.</span></span>
+                </a>
+                <p class="text-gray-400 leading-relaxed text-sm pr-4">
+                    Pioneering sustainable digital solutions. We engineer high-performance web applications designed to minimize global carbon footprints while maximizing your digital brand impact.
+                </p>
+                <div class="flex items-center gap-4 mt-8">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-linkedin text-xl'></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-twitter text-xl'></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-eco-500 text-white flex items-center justify-center transition-colors"><i class='bx bxl-github text-xl'></i></a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 lg:col-start-7">
+                <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Navigation</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="/#services" class="hover:text-eco-500 transition-colors">Our Services</a></li>
+                    <li><a href="/#portfolio" class="hover:text-eco-500 transition-colors">Portfolio</a></li>
+                    <li><a href="/#blog" class="hover:text-eco-500 transition-colors">Journal</a></li>
+                    <li><a href="/#contact" class="hover:text-eco-500 transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="lg:col-span-4">
+                <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Join the Green Tech Movement</h4>
+                <p class="text-sm text-gray-400 mb-4">Subscribe for insights on sustainable development and digital innovation.</p>
+                <form class="flex relative group">
+                    <input type="email" placeholder="Enter your email address" required 
+                           class="w-full bg-gray-800/50 border border-gray-700 text-white px-5 py-3 rounded-xl outline-none focus:border-eco-500 transition-colors text-sm pr-32">
+                    <button type="submit" class="absolute right-1 top-1 bottom-1 bg-eco-500 hover:bg-eco-600 text-white font-bold px-6 rounded-lg text-sm transition-colors shadow-lg shadow-eco-500/20">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <div class="flex space-x-5">
-            <a href="#" class="text-gray-400 hover:text-eco-500 dark:hover:text-eco-neon transition-colors" aria-label="GitHub">
-                <i class='bx bxl-github text-xl sm:text-2xl'></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-eco-500 dark:hover:text-eco-neon transition-colors" aria-label="LinkedIn">
-                <i class='bx bxl-linkedin-square text-xl sm:text-2xl'></i>
-            </a>
+        <div class="border-t border-gray-800/80 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium text-gray-500">
+            <p>&copy; <%= new Date().getFullYear() %> Eco Tech Hub. All rights reserved.</p>
+            <div class="flex items-center gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="/admin/login" class="hover:text-eco-500 transition-colors flex items-center gap-1">
+                    <i class='bx bx-lock-alt'></i> Admin Login
+                </a>
+            </div>
         </div>
     </div>
 </footer>

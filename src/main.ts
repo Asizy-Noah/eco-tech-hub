@@ -11,7 +11,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.use(cookieParser());
-  app.use(expressLayouts); 
+  app.use(expressLayouts);  
 
   // Use process.cwd() to consistently point to the project root
   const rootPath = process.cwd();
