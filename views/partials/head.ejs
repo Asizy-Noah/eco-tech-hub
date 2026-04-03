@@ -2,25 +2,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<!-- SEO & Meta Tags -->
 <meta name="description" content="Premium sustainable digital solutions. We engineer high-performance web applications with zero carbon footprint.">
 <meta name="keywords" content="sustainable design, eco-friendly web, green technology, carbon-neutral development">
 <meta name="author" content="Eco Tech Hub">
 <meta name="theme-color" content="#10b981">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Eco Tech Hub - Sustainable Digital Solutions">
 <meta property="og:description" content="Premium web applications designed for sustainability and performance.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop">
 
-<!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2310b981'>🌿</text></svg>">
 
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwindConfig = {
+    darkMode: 'class', // <--- CRITICAL FIX: This tells Tailwind to listen to the .dark class
     theme: {
       extend: {
         colors: {
@@ -74,13 +71,10 @@
   }
 </script>
 
-<!-- Boxicons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
 
-<!-- Alpine.js for interactivity -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Dark Mode Script (prevents FOUC - Flash of Unstyled Content) -->
 <script>
   (function() {
     const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -90,7 +84,6 @@
   })();
 </script>
 
-<!-- Custom Styles -->
 <style>
   /* Smooth scrolling */
   html {
@@ -191,4 +184,4 @@
   }
 </style>
 
-<title>Eco Tech Hub - Sustainable Digital Solutions</title>
+<title><%- locals.title || 'Eco Tech Hub - Sustainable Digital Solutions' %></title>

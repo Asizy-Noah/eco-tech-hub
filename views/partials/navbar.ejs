@@ -1,134 +1,92 @@
-<nav x-data="{ 
-  scrollY: 0,
-  lastScrollY: 0,
-  isHidden: false,
-  mobileOpen: false,
-  searchOpen: false,
-  theme: localStorage.getItem('theme') || 'light',
-  
-  init() {
-    this.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-  },
-  
-  toggleTheme() {
-    this.theme = this.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', this.theme);
-    if (this.theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  },
-  
-  handleScroll() {
-    this.scrollY = window.scrollY;
-    
-    // Hide navbar when scrolling down past 80px threshold
-    if (this.scrollY > this.lastScrollY && this.scrollY > 80) {
-      this.isHidden = true;
-    } 
-    // Show navbar when scrolling up
-    else if (this.scrollY < this.lastScrollY) {
-      this.isHidden = false;
-    }
-    
-    this.lastScrollY = this.scrollY;
-  }
-}" 
-@scroll.window.passive="handleScroll()"
-@click.outside="mobileOpen = false"
-class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out"
-:class="isHidden ? '-translate-y-full' : 'translate-y-0'">
-
-  <!-- Navbar Container -->
-  <div class="backdrop-blur-2xl bg-white/95 dark:bg-[#0a0a0a]/95 border-b border-black/5 dark:border-white/5 shadow-sm dark:shadow-none">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 sm:h-16 md:h-20">
+<div x-data="{ 
+        atTop: true, 
+        lastScrollY: window.scrollY, 
+        isHidden: false, 
+        searchOpen: false, 
+        mobileMenu: false,
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
         
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 group z-50 flex-shrink-0">
-          <div class="w-8 h-8 sm:w-9 md:w-10 rounded-lg bg-gradient-to-br from-eco-400 to-eco-600 flex items-center justify-center text-white text-xs sm:text-sm font-bold transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-eco-500/30">
-            ET
-          </div>
-          <span class="hidden xs:block font-bold text-sm sm:text-base md:text-lg tracking-tight text-black dark:text-white">Eco<span class="hidden sm:inline">Tech</span><span class="text-eco-500">.</span></span>
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', this.theme);
+            if (this.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+    }" 
+    @scroll.window="
+        let currentY = window.scrollY;
+        atTop = currentY <= 20;
+        /* Hides when scrolling down, shows when scrolling up */
+        if (currentY > lastScrollY && currentY > 100) { isHidden = true; } 
+        else if (currentY < lastScrollY) { isHidden = false; }
+        lastScrollY = currentY;
+    "
+    class="fixed top-0 left-0 right-0 z-50 p-4 sm:p-6 flex justify-center pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    :class="isHidden ? '-translate-y-full' : 'translate-y-0'"
+>
+    <nav class="w-full max-w-5xl bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-lg rounded-full px-6 py-3 flex justify-between items-center pointer-events-auto transition-all duration-300"
+         :class="searchOpen ? 'max-w-6xl' : 'max-w-5xl'">
+         
+        <a href="/" class="flex items-center gap-2 group z-50">
+            <i class='bx bx-leaf text-eco-500 text-2xl transition-transform transform-gpu group-hover:-rotate-12'></i>
+            <span class="font-bold text-lg tracking-tight text-black dark:text-white">Eco Tech Hub<span class="text-eco-500">.</span></span>
         </a>
 
-        <!-- Desktop Navigation -->
-        <div class="hidden lg:flex items-center gap-6 xl:gap-8">
-          <a href="/#services" class="text-xs md:text-sm font-medium text-black/60 dark:text-white/60 hover:text-eco-600 dark:hover:text-eco-400 transition-colors duration-200 relative group">
-            Services
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-eco-500 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="/#portfolio" class="text-xs md:text-sm font-medium text-black/60 dark:text-white/60 hover:text-eco-600 dark:hover:text-eco-400 transition-colors duration-200 relative group">
-            Portfolio
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-eco-500 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="/#blog" class="text-xs md:text-sm font-medium text-black/60 dark:text-white/60 hover:text-eco-600 dark:hover:text-eco-400 transition-colors duration-200 relative group">
-            Journal
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-eco-500 group-hover:w-full transition-all duration-300"></span>
-          </a>
+        <div class="hidden md:flex items-center gap-8 font-semibold text-sm text-black/60 dark:text-white/60">
+            <a href="/services" class="hover:text-black dark:hover:text-white transition-colors">Services</a>
+            <a href="/projects" class="hover:text-black dark:hover:text-white transition-colors">Portfolio</a>
+            <a href="/blog" class="hover:text-black dark:hover:text-white transition-colors">Journal</a>
         </div>
 
-        <!-- Right Actions -->
-        <div class="flex items-center gap-2 sm:gap-4">
-          <!-- Search (Desktop) -->
-          <div class="hidden md:flex items-center">
-            <div class="relative">
-              <input type="text" 
-                     placeholder="Search..." 
-                     class="hidden sm:block w-0 group-focus-within:w-48 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 px-3 py-2 rounded-full text-xs transition-all duration-300 focus:outline-none focus:border-eco-500"
-                     @focus="$el.parentElement.classList.add('w-48')"
-                     @blur="$el.parentElement.classList.remove('w-48')">
+        <div class="hidden md:flex items-center gap-2">
+            
+            <div class="flex items-center bg-black/5 dark:bg-white/5 rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" 
+                 :class="searchOpen ? 'w-48 opacity-100 px-4 mr-2' : 'w-0 opacity-0 px-0'">
+                <input type="text" placeholder="Search..." class="bg-transparent outline-none w-full text-sm py-2 text-black dark:text-white placeholder-black/40 dark:placeholder-white/40">
             </div>
-          </div>
+            <button @click="searchOpen = !searchOpen" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/10 text-black/80 dark:text-white/80 transition-colors">
+                <i class='bx bx-search text-lg'></i>
+            </button>
 
-          <!-- Theme Toggle -->
-          <button @click="toggleTheme()" 
-                  class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-black dark:text-white transition-colors duration-200"
-                  :title="theme === 'dark' ? 'Light mode' : 'Dark mode'">
-            <i class='bx text-lg sm:text-xl transition-transform duration-500' :class="theme === 'dark' ? 'bx-sun text-yellow-400' : 'bx-moon'"></i>
-          </button>
+            <button @click="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/10 text-black/80 dark:text-white/80 transition-colors">
+                <i class='bx text-lg transition-transform duration-500' :class="theme === 'dark' ? 'bx-sun text-yellow-400 rotate-180' : 'bx-moon -rotate-12'"></i>
+            </button>
 
-          <!-- CTA Button (Desktop) -->
-          <a href="/#contact" class="hidden md:flex px-4 lg:px-6 py-2 lg:py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-xs lg:text-sm uppercase tracking-wide hover:shadow-lg hover:shadow-black/30 dark:hover:shadow-eco-500/30 transform hover:scale-110 transition-all duration-300 active:scale-95">
-            Talk
-            <span class="hidden lg:inline ml-1">Now</span>
-          </a>
-
-          <!-- Mobile Menu Button -->
-          <button @click="mobileOpen = !mobileOpen" 
-                  class="lg:hidden w-9 h-9 flex items-center justify-center text-black dark:text-white">
-            <i class='bx text-2xl transition-transform duration-300' :class="mobileOpen ? 'bx-x' : 'bx-menu'"></i>
-          </button>
+            <a href="/contact" class="ml-2 px-5 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-widest hover:scale-105 transition-transform duration-300">
+                Let's Talk
+            </a>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Mobile Menu -->
-  <div x-show="mobileOpen"
-       x-transition:enter="transition ease-out duration-300"
-       x-transition:enter-start="opacity-0 -translate-y-2"
-       x-transition:enter-end="opacity-100 translate-y-0"
-       x-transition:leave="transition ease-in duration-200"
-       x-transition:leave-start="opacity-100 translate-y-0"
-       x-transition:leave-end="opacity-0 -translate-y-2"
-       class="lg:hidden backdrop-blur-2xl bg-white/98 dark:bg-[#0a0a0a]/98 border-b border-black/5 dark:border-white/5">
-    
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 space-y-0.5">
-      <a href="/#services" @click="mobileOpen = false" class="block px-3 py-2.5 text-sm font-medium text-black dark:text-white hover:bg-eco-50 dark:hover:bg-white/5 rounded-lg transition-colors duration-200">
-        Services
-      </a>
-      <a href="/#portfolio" @click="mobileOpen = false" class="block px-3 py-2.5 text-sm font-medium text-black dark:text-white hover:bg-eco-50 dark:hover:bg-white/5 rounded-lg transition-colors duration-200">
-        Portfolio
-      </a>
-      <a href="/#blog" @click="mobileOpen = false" class="block px-3 py-2.5 text-sm font-medium text-black dark:text-white hover:bg-eco-50 dark:hover:bg-white/5 rounded-lg transition-colors duration-200">
-        Journal
-      </a>
-      <div class="my-2 border-t border-black/5 dark:border-white/5"></div>
-      <a href="/#contact" @click="mobileOpen = false" class="block px-3 py-2.5 text-sm font-bold text-white bg-eco-600 dark:bg-eco-600 hover:bg-eco-700 rounded-lg transition-colors duration-200">
-        Get In Touch
-      </a>
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden w-10 h-10 flex items-center justify-end text-black dark:text-white z-50">
+            <i class='bx text-2xl transition-transform' :class="mobileMenu ? 'bx-x' : 'bx-menu'"></i>
+        </button>
+    </nav>
+
+    <div x-show="mobileMenu" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95 -translate-y-4"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+         x-transition:leave-end="opacity-0 scale-95 -translate-y-4"
+         x-cloak 
+         class="md:hidden absolute top-[80px] left-4 right-4 bg-white/95 dark:bg-black/95 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-3xl p-6 shadow-2xl pointer-events-auto flex flex-col gap-6">
+        
+        <a href="/services" @click="mobileMenu = false" class="text-2xl font-bold text-black dark:text-white hover:text-eco-500 transition-colors">Services</a>
+        <a href="/projects" @click="mobileMenu = false" class="text-2xl font-bold text-black dark:text-white hover:text-eco-500 transition-colors">Portfolio</a>
+        <a href="/blog" @click="mobileMenu = false" class="text-2xl font-bold text-black dark:text-white hover:text-eco-500 transition-colors">Journal</a>
+        
+        <hr class="border-black/10 dark:border-white/10">
+        
+        <div class="flex justify-between items-center">
+            <a href="/contact" @click="mobileMenu = false" class="text-eco-500 font-bold uppercase tracking-widest text-sm">Contact Us</a>
+            
+            <button @click="toggleTheme()" class="w-12 h-12 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/10 text-black dark:text-white">
+                <i class='bx text-xl transition-transform duration-500' :class="theme === 'dark' ? 'bx-sun text-yellow-400 rotate-180' : 'bx-moon'"></i>
+            </button>
+        </div>
     </div>
-  </div>
-</nav>
+</div>
