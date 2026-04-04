@@ -23,6 +23,8 @@ model Project {
   techStack     String   
   isEcoFriendly Boolean  @default(true) 
   projectUrl    String?
+  serviceId     String?
+  service       Service? @relation(fields: [serviceId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -31,7 +33,8 @@ model Service {
   id          String   @id @default(cuid())
   name        String
   description String
-  iconClass   String   
+  iconClass   String
+  projects    Project[]   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -17,22 +17,22 @@
     
     <div class="flex flex-wrap justify-center gap-2 mb-16 relative z-20">
         <button @click="setFilter('all')" 
-                class="px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 border backdrop-blur-md"
-                :class="activeFilter === 'all' ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white shadow-lg' : 'bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30'">
+                class="px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border backdrop-blur-md"
+                :class="activeFilter === 'all' ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white shadow-lg' : 'bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10'">
             All Projects
         </button>
         
         <button @click="setFilter('eco')" 
-                class="px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 border backdrop-blur-md flex items-center gap-2"
-                :class="activeFilter === 'eco' ? 'bg-eco-500 text-white border-eco-500 shadow-lg shadow-eco-500/20' : 'bg-black/5 dark:bg-white/5 text-eco-600 dark:text-eco-400 border-black/10 dark:border-white/10 hover:border-eco-500/50'">
+                class="px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border backdrop-blur-md flex items-center gap-2"
+                :class="activeFilter === 'eco' ? 'bg-eco-500 text-white border-eco-500 shadow-lg shadow-eco-500/20' : 'bg-black/5 dark:bg-white/5 text-eco-600 dark:text-eco-400 border-black/10 dark:border-white/10'">
             <i class='bx bx-leaf'></i> Eco-Verified
         </button>
 
-        <% techStacks.forEach(tech => { %>
-            <button @click="setFilter('<%= tech %>')" 
-                    class="px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 border backdrop-blur-md"
-                    :class="activeFilter === '<%= tech %>' ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white shadow-lg' : 'bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30'">
-                <%= tech %>
+        <% services.forEach(service => { %>
+            <button @click="setFilter('<%= service.id %>')" 
+                    class="px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border backdrop-blur-md"
+                    :class="activeFilter === '<%= service.id %>' ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white shadow-lg' : 'bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 border-black/10 dark:border-white/10'">
+                <%= service.name %>
             </button>
         <% }) %>
     </div>
@@ -40,7 +40,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         <% if (projects && projects.length > 0) { %>
             <% projects.forEach((project, index) => { %>
-                <div x-show="matchesFilter('<%= project.techStack %>', <%= project.isEcoFriendly %>)" 
+                <div x-show="matchesFilter('<%= project.serviceId %>', <%= project.isEcoFriendly %>)" 
                      x-transition:enter="transition ease-out duration-500"
                      x-transition:enter-start="opacity-0 scale-95"
                      x-transition:enter-end="opacity-100 scale-100"
@@ -88,23 +88,14 @@
 </section>
 
 <script>
-// Alpine.js Logic for instant client-side filtering
 function portfolioFilter() {
     return {
         activeFilter: 'all',
-        setFilter(filter) {
-            this.activeFilter = filter;
-        },
-        matchesFilter(techStack, isEcoFriendly) {
+        setFilter(id) { this.activeFilter = id; },
+        matchesFilter(serviceId, isEcoFriendly) {
             if (this.activeFilter === 'all') return true;
-            if (this.activeFilter === 'eco' && isEcoFriendly) return true;
-            
-            // Check if the project's tech stack includes the active filter
-            if (techStack) {
-                const stacks = techStack.split(',').map(s => s.trim());
-                return stacks.includes(this.activeFilter);
-            }
-            return false;
+            if (this.activeFilter === 'eco') return isEcoFriendly;
+            return serviceId === this.activeFilter; // Filter by Service ID
         }
     }
 }

@@ -11,6 +11,8 @@ import { BlogsApiController } from './blogs/blogs.controller';
 import { QuotesApiController } from './quotes/quotes.controller';
 import { MailService } from './mail.service';
 import { MessagesApiController } from './messages/messages.controller';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ViewDataInterceptor } from './view-data.interceptor';
 
 @Module({
   imports: [],
@@ -24,6 +26,9 @@ import { MessagesApiController } from './messages/messages.controller';
     QuotesApiController,
     MessagesApiController,
   ],
-  providers: [AppService, PrismaService, S3Service, MailService],
+  providers: [AppService, PrismaService, S3Service, MailService, {
+      provide: APP_INTERCEPTOR,
+      useClass: ViewDataInterceptor,
+    },],
 })
 export class AppModule {}

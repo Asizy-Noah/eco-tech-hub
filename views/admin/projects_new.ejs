@@ -19,6 +19,16 @@
             </div>
 
             <div class="col-span-2 md:col-span-1">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Category / Service</label>
+                <select x-model="formData.serviceId" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-eco-500 outline-none">
+                    <option value="">Select a Service...</option>
+                    <% services.forEach(s => { %>
+                        <option value="<%= s.id %>"><%= s.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="col-span-2 md:col-span-1">
                 <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tech Stack</label>
                 <input type="text" x-model="formData.techStack" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-eco-500 outline-none">
             </div>
@@ -51,7 +61,7 @@
 <script>
 function projectForm() {
     return {
-        formData: { title: '', techStack: '', projectUrl: '', description: '', isEcoFriendly: true },
+        formData: { title: '', techStack: '', projectUrl: '', description: '', isEcoFriendly: true, serviceId: '' },
         loading: false,
         error: '',
         async submitProject() {

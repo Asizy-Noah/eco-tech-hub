@@ -30,6 +30,168 @@
         </a>
     </div>
 
+    <div x-data="globalSearchModal()" 
+         @open-search.window="openModal()" 
+         @keydown.escape.window="closeModal()"
+         @keydown.window="(e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openModal(); } }"
+         x-show="isOpen" 
+         class="fixed inset-0 z-[10000] flex items-start justify-center pt-20 sm:pt-32 px-4"
+         x-cloak>
+        
+        <div x-show="isOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 backdrop-blur-none"
+             x-transition:enter-end="opacity-100 backdrop-blur-md"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 backdrop-blur-md"
+             x-transition:leave-end="opacity-0 backdrop-blur-none"
+             @click="closeModal()"
+             class="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
+
+        <div x-show="isOpen" 
+             @click.stop
+             x-transition:enter="transition ease-[cubic-bezier(0.16,1,0.3,1)] duration-500"
+             x-transition:enter-start="opacity-0 scale-95 -translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-95 -translate-y-4"
+             class="relative w-full max-w-2xl bg-white dark:bg-[#111111] rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-black/10 dark:border-white/10 overflow-hidden flex flex-col max-h-[80vh]">
+            
+            <div class="flex items-center px-6 py-4 border-b border-black/5 dark:border-white/5">
+                <i class='bx bx-search text-2xl text-black/40 dark:text-white/40 mr-4' :class="{'bx-loader-alt animate-spin text-eco-500': loading}"></i>
+                <input x-ref="searchInput" 
+                       x-model="query" 
+                       type="text" 
+                       placeholder="Search projects, services, or journal entries..." 
+                       class="flex-1 bg-transparent border-none outline-none text-lg sm:text-xl text-black dark:text-white placeholder-black/30 dark:placeholder-white/30"
+                       autocomplete="off">
+                <button @click="closeModal()" class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-xs font-bold text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors">ESC</button>
+            </div>
+
+            <div class="overflow-y-auto p-4 sm:p-6 space-y-8 flex-1" x-show="query.length > 0">
+                
+                <div x-show="!loading && totalResults === 0 && query.length > 1" class="text-center py-10">
+                    <i class='bx bx-ghost text-4xl text-black/20 dark:text-white/20 mb-3'></i>
+                    <p class="text-black/50 dark:text-white/50 font-medium">No results found for "<span x-text="query"></span>"</p>
+                </div>
+
+                <div x-show="results.projects.length > 0">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-blue-500 mb-4 px-2">Projects</h4>
+                    <div class="space-y-2">
+                        <template x-for="item in results.projects" :key="item.id">
+                            <a :href="item.projectUrl || '/projects'" class="flex items-center gap-4 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
+                                <div class="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/5 overflow-hidden">
+                                    <template x-if="item.imageUrl"><img :src="item.imageUrl" class="w-full h-full object-cover"></template>
+                                    <template x-if="!item.imageUrl"><i class='bx bx-layer text-xl text-black/40 dark:text-white/40'></i></template>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-black dark:text-white group-hover:text-blue-500 transition-colors" x-text="item.title"></div>
+                                    <div class="text-xs text-black/50 dark:text-white/50 truncate max-w-sm" x-text="item.description"></div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+
+                <div x-show="results.services.length > 0">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-eco-500 mb-4 px-2">Services</h4>
+                    <div class="space-y-2">
+                        <template x-for="item in results.services" :key="item.id">
+                            <a href="/services" class="flex items-center gap-4 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
+                                <div class="w-12 h-12 rounded-xl bg-black/5 dark:bg-[#1a1a1a] flex items-center justify-center border border-black/5 dark:border-white/5 group-hover:bg-eco-500 transition-colors">
+                                    <i :class="'bx ' + item.iconClass" class="text-xl text-black/40 dark:text-white/40 group-hover:text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-black dark:text-white group-hover:text-eco-500 transition-colors" x-text="item.name"></div>
+                                    <div class="text-xs text-black/50 dark:text-white/50 truncate max-w-sm" x-text="item.description"></div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+
+                <div x-show="results.blogs.length > 0">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-purple-500 mb-4 px-2">Journal</h4>
+                    <div class="space-y-2">
+                        <template x-for="item in results.blogs" :key="item.id">
+                            <a :href="'/blog/' + item.slug" class="flex items-center gap-4 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
+                                <div class="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/5">
+                                    <i class='bx bx-news text-xl text-black/40 dark:text-white/40 group-hover:text-purple-500'></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-black dark:text-white group-hover:text-purple-500 transition-colors" x-text="item.title"></div>
+                                    <div class="text-xs text-black/50 dark:text-white/50" x-text="'Publication'"></div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-black/5 dark:bg-white/5 px-6 py-3 border-t border-black/5 dark:border-white/5 flex justify-between items-center text-xs font-medium text-black/40 dark:text-white/40">
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1"><kbd class="bg-black/10 dark:bg-white/10 px-1.5 rounded">↑</kbd><kbd class="bg-black/10 dark:bg-white/10 px-1.5 rounded">↓</kbd> to navigate</span>
+                    <span class="flex items-center gap-1"><kbd class="bg-black/10 dark:bg-white/10 px-1.5 rounded">↵</kbd> to select</span>
+                </div>
+                <span>Powered by Eco Tech</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function globalSearchModal() {
+            return {
+                isOpen: false,
+                query: '',
+                loading: false,
+                results: { projects: [], services: [], blogs: [] },
+                debounceTimeout: null,
+                
+                get totalResults() {
+                    return this.results.projects.length + this.results.services.length + this.results.blogs.length;
+                },
+
+                init() {
+                    this.$watch('query', (value) => {
+                        clearTimeout(this.debounceTimeout);
+                        if (value.trim().length < 2) {
+                            this.results = { projects: [], services: [], blogs: [] };
+                            this.loading = false;
+                            return;
+                        }
+                        this.loading = true;
+                        this.debounceTimeout = setTimeout(() => { this.fetchResults(value); }, 300);
+                    });
+                },
+
+                async fetchResults(q) {
+                    try {
+                        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+                        this.results = await res.json();
+                    } catch (e) {
+                        console.error('Search failed:', e);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                openModal() {
+                    this.isOpen = true;
+                    this.query = '';
+                    this.results = { projects: [], services: [], blogs: [] };
+                    // Wait for DOM to render the modal before focusing
+                    setTimeout(() => { this.$refs.searchInput.focus(); }, 100);
+                },
+
+                closeModal() {
+                    this.isOpen = false;
+                }
+            }
+        }
+    </script>
+
     <script>
       document.addEventListener('alpine:init', () => {
         // Fix smooth scroll anchor links

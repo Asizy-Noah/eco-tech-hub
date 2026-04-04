@@ -36,23 +36,28 @@ export class AdminController {
 
   @Get('projects/new')
   @Render('admin/projects_new')
-  getNewProjectPage() {
-    return { layout: 'layouts/admin', title: 'New Project | Eco Tech Hub' };
+  async getNewProjectPage() {
+    // Fetch services so the user can pick one
+    const services = await this.prisma.service.findMany();
+    return { layout: 'layouts/admin', title: 'New Project', services };
   }
 
-  // Add this inside AdminController
   @Get('projects/edit/:id')
-  @Render('admin/projects_edit')
-  async getEditProjectPage(@Param('id') id: string, @Res() res) {
-    const project = await this.prisma.project.findUnique({ where: { id } });
-    if (!project) return res.redirect('/admin/projects'); // Fallback if ID is invalid
+// You MUST add @Res() res: Response here to use it inside the function
+async getEditProjectPage(@Param('id') id: string, @Res() res: Response) { 
+  const project = await this.prisma.project.findUnique({ where: { id } });
+  const services = await this.prisma.service.findMany();
+  
+  if (!project) return res.redirect('/admin/projects');
 
-    return { 
-      layout: 'layouts/admin', 
-      title: 'Edit Project | Eco Tech Hub',
-      project // Pass the data to the view
-    };
-  }
+  // When using @Res(), you must manually call res.render
+  return res.render('admin/projects_edit', { 
+    layout: 'layouts/admin', 
+    title: 'Edit Project | Eco Tech Hub',
+    project,
+    services 
+  });
+}
 
   // --- SERVICES VIEWS ---
   @Get('services')

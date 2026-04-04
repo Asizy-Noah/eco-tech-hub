@@ -28,6 +28,7 @@ async createProject(@Body() data, @UploadedFile() file: Express.Multer.File, @Re
         imageUrl: imageUrl, // Saves the R2 Public URL in the database
         projectUrl: data.projectUrl,
         isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
+        serviceId: data.serviceId || null,
       },
     });
     return res.status(HttpStatus.CREATED).json(project);
@@ -46,6 +47,7 @@ async createProject(@Body() data, @UploadedFile() file: Express.Multer.File, @Re
         techStack: data.techStack,
         projectUrl: data.projectUrl,
         isEcoFriendly: data.isEcoFriendly === 'true' || data.isEcoFriendly === true,
+        serviceId: data.serviceId || null,
       };
 
       if (file) updateData.imageUrl = await this.s3Service.uploadFile(file);

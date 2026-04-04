@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Render, Res } from '@nestjs/common';
+import { Controller, Get, Param, Render, Res, Query } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import type { Response } from 'express';
 
@@ -18,15 +18,26 @@ export class AppController {
   }
 
   @Get('projects')
-  @Render('public/projects')
-  async getProjectsPage() {
-    const projects = await this.prisma.project.findMany({ orderBy: { createdAt: 'desc' } });
-    const techStacks = new Set<string>();
-    projects.forEach(p => {
-      if (p.techStack) p.techStack.split(',').forEach(tech => techStacks.add(tech.trim()));
-    });
-    return { layout: 'layouts/main', title: 'Our Work | Eco Tech Hub', projects, techStacks: Array.from(techStacks) };
-  }
+@Render('public/projects')
+async getProjectsPage() {
+  // Fetch projects (including the linked service) and the full services list
+  const [projects, services] = await Promise.all([
+    this.prisma.project.findMany({ 
+      include: { service: true }, 
+      orderBy: { createdAt: 'desc' } 
+    }),
+    this.prisma.service.findMany({
+      orderBy: { name: 'asc' }
+    })
+  ]);
+
+  return { 
+    layout: 'layouts/main', 
+    title: 'Our Work | Eco Tech Hub', 
+    projects, 
+    services 
+  };
+}
 
   @Get('services')
   @Render('public/services')
@@ -69,4 +80,39 @@ export class AppController {
   getTermsPage() {
     return { layout: 'layouts/main', title: 'Terms of Service | Eco Tech Hub' };
   }
+
+  @Get('api/search')
+  async globalSearch(@Query('q') q: string, @Res() res: Response) {
+    if (!q || q.trim() === '') {
+      return res.json({ projects: [], services: [], blogs: [] });
+    }
+
+    const term = q.toLowerCase().trim();
+
+    // Fetch all records (since it's a portfolio, the dataset is light and this is incredibly fast)
+    const [allProjects, allServices, allBlogs] = await Promise.all([
+      this.prisma.project.findMany({ include: { service: true } }),
+      this.prisma.service.findMany(),
+      this.prisma.blog.findMany({ where: { isPublished: true } })
+    ]);
+
+    // Filter in-memory for perfect case-insensitivity
+    const projects = allProjects.filter(p => 
+      p.title.toLowerCase().includes(term) || 
+      p.techStack.toLowerCase().includes(term) || 
+      p.description.toLowerCase().includes(term)
+    ).slice(0, 4); // Limit to top 4 results
+
+    const services = allServices.filter(s => 
+      s.name.toLowerCase().includes(term) || 
+      s.description.toLowerCase().includes(term)
+    ).slice(0, 3);
+
+    const blogs = allBlogs.filter(b => 
+      b.title.toLowerCase().includes(term)
+    ).slice(0, 3);
+
+    return res.json({ projects, services, blogs });
+  }
+
 }
